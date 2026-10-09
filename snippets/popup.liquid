@@ -1,0 +1,63 @@
+<div id="popup-overlay">
+  <div id="popup-box">
+    <button id="popup-close" onclick="closePopup()" aria-label="Close">&#215;</button>
+    <div id="pu-form-wrap" style="padding:44px 42px 34px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#A88B4A;margin-bottom:10px;">Welcome to AERON</div>
+      <div style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(20px,5vw,30px);line-height:.92;text-transform:uppercase;color:#0F1A2B;margin-bottom:10px;">Get <span style="background:linear-gradient(90deg,#A88B4A,#E8C97A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$10 Off</span><br>Your First Order</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(15,26,43,.42);margin-bottom:22px;line-height:1.55;">$10 CAD off your first kit or grip sock order.</div>
+      {% form 'customer', id: 'popup-newsletter-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter,aeron10-eligible">
+        <div style="display:flex;">
+          <input type="email" name="contact[email]" id="popupEmail" placeholder="your@email.com" required autocomplete="email" style="flex:1;background:#F2F2F2;border:1px solid rgba(15,26,43,.09);border-right:none;color:#0F1A2B;font-family:'Barlow',sans-serif;font-size:13px;padding:13px 16px;outline:none;-webkit-appearance:none;border-radius:0;">
+          <button type="submit" class="aeron-btn" style="padding:13px 18px;white-space:nowrap;border-radius:0;animation:none;background:#0F1A2B;color:#C6A962;">Claim $10 Off</button>
+        </div>
+        {% if form.errors %}
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:#e55;margin-top:8px;">{{ form.errors | default_errors }}</div>
+        {% endif %}
+      {% endform %}
+      <div style="font-family:'Barlow',sans-serif;font-size:10px;color:rgba(15,26,43,.35);margin-top:10px;text-align:center;">Unsubscribe anytime. First order only.</div>
+      <button onclick="closePopup()" style="display:block;margin-top:12px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(15,26,43,.35);cursor:pointer;background:none;border:none;text-decoration:underline;width:100%;text-align:center;">No thanks, continue</button>
+    </div>
+    <div id="pu-success" style="display:none;text-align:center;padding:44px 36px;">
+      <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#A88B4A,#E8C97A);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1A2B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#0F1A2B;margin-bottom:8px;">You're in.</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(15,26,43,.42);margin-bottom:14px;">Use code <strong style="color:#0F1A2B;font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;">AERON10</strong> at checkout for $10 off.</div>
+      <button onclick="closePopup()" style="display:block;margin:0 auto;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(15,26,43,.35);cursor:pointer;background:none;border:none;text-decoration:underline;">Continue shopping</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Override submitPopup to handle Shopify form
+document.addEventListener('DOMContentLoaded', function(){
+  var form = document.getElementById('popup-newsletter-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('popupEmail');
+    if(!email || !email.value) return;
+    // Submit to Shopify customer endpoint
+    fetch('/contact', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams({
+        'form_type': 'customer',
+        'utf8': '✓',
+        'contact[email]': email.value,
+        'contact[tags]': 'newsletter,aeron10-eligible'
+      })
+    }).then(function(){
+      document.getElementById('pu-form-wrap').style.display = 'none';
+      document.getElementById('pu-success').style.display = 'block';
+      sessionStorage.setItem('aeronPopupSeen','1');
+    }).catch(function(){
+      // Still show success even if fetch fails
+      document.getElementById('pu-form-wrap').style.display = 'none';
+      document.getElementById('pu-success').style.display = 'block';
+      sessionStorage.setItem('aeronPopupSeen','1');
+    });
+  });
+});
+</script>

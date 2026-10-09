@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0F1A2B">
+  <title>{{ page_title }} | {{ shop.name }}</title>
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  {% if settings.favicon != blank %}<link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">{% endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  {{ content_for_header }}
+  {{ 'aeron.css' | asset_url | stylesheet_tag }}
+  <style>
+    html { color-scheme: light; }
+    body { opacity: 0; transition: opacity .2s; }
+    body.ready { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div id="aeron-cur"></div>
+  <div id="aeron-crng"></div>
+  {% render 'popup' %}
+  {% render 'mobile-menu' %}
+  {% section 'header' %}
+  <main id="main-content">{{ content_for_layout }}</main>
+  {% section 'footer' %}
+  <script src="{{ 'aeron.js' | asset_url }}" defer></script>
+  <script>document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('ready');});</script>
+</body>
+</html>

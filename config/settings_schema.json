@@ -1,0 +1,62 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "AERON",
+    "theme_version": "2.0.0",
+    "theme_author": "AERON Sportswear",
+    "theme_documentation_url": "https://byaeron.com",
+    "theme_support_url": "mailto:marwan.hassan@byaeron.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon (transparent PNG, 512x512)"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_light",
+        "label": "Logo — white version (for dark backgrounds)"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_dark",
+        "label": "Logo — dark version (for white backgrounds)"
+      }
+    ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "email",
+        "label": "Email",
+        "default": "marwan.hassan@byaeron.com"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp",
+        "label": "WhatsApp number (digits + country code)",
+        "default": "15141234567"
+      },
+      {
+        "type": "url",
+        "id": "instagram",
+        "label": "Instagram URL"
+      }
+    ]
+  },
+  {
+    "name": "Kit Pricing",
+    "settings": [
+      {
+        "type": "text",
+        "id": "stripe_deposit",
+        "label": "Stripe $20 Deposit Link URL"
+      }
+    ]
+  }
+]

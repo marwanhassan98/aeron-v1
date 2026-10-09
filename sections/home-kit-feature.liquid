@@ -1,0 +1,71 @@
+<style>
+.kit-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;max-width:1400px;margin:0 auto;}
+.kit-feat-img{position:relative;overflow:hidden;min-height:560px;background:#0F1A2B;}
+.kit-feat-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s;}
+.kit-feat-grid:hover .kit-feat-img img{transform:scale(1.03);}
+.kit-feat-body{padding:80px 72px;display:flex;flex-direction:column;justify-content:center;background:{{ section.settings.bg | default: '#0F1A2B' }};}
+.kit-feat-bullet{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.kit-feat-bullet-dot{width:6px;height:6px;border-radius:50%;background:#C6A962;flex-shrink:0;margin-top:7px;}
+.kit-feat-bullet-text{font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.55);line-height:1.5;}
+.kit-feat-bullet-text strong{color:#fff;display:block;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;}
+@media(max-width:900px){.kit-feat-grid{grid-template-columns:1fr!important;}.kit-feat-img{min-height:300px;}.kit-feat-body{padding:52px 28px;}}
+</style>
+
+<div class="kit-feat-grid">
+  <div class="kit-feat-img">
+    {% if section.settings.image != blank %}
+      <img src="{{ section.settings.image | img_url: '1000x' }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
+    {% else %}
+      <div style="width:100%;height:100%;min-height:560px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;opacity:.2;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:6px;color:#C6A962;">APEX</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;color:#fff;text-transform:uppercase;">Upload kit photo in theme editor</div>
+      </div>
+    {% endif %}
+  </div>
+  <div class="kit-feat-body">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#C6A962;margin-bottom:12px;">{{ section.settings.kicker | default: 'The APEX Kit' }}</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,90px);letter-spacing:4px;color:#fff;line-height:.88;margin-bottom:20px;">{{ section.settings.heading | default: 'One Kit.<br>Everything.' }}</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.42);line-height:1.7;margin-bottom:32px;max-width:420px;">{{ section.settings.body | default: 'Starting from $45 CAD. Every kit includes full sublimation, AERON embroidered logo, and TPU raised crest.' }}</div>
+    <div style="margin-bottom:36px;">
+      {% for block in section.blocks %}
+        <div class="kit-feat-bullet" {{ block.shopify_attributes }}>
+          <div class="kit-feat-bullet-dot"></div>
+          <div class="kit-feat-bullet-text"><strong>{{ block.settings.title }}</strong>{{ block.settings.description }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    <div style="display:flex;align-items:baseline;gap:10px;padding-top:22px;border-top:1px solid rgba(198,169,98,.12);margin-bottom:26px;">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);">{{ section.settings.price_from | default: 'from' }}</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:1;" class="gold-text">{{ section.settings.price | default: '$45' }}</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.25);letter-spacing:2px;">{{ section.settings.price_unit | default: 'CAD / jersey' }}</span>
+    </div>
+    <a href="{{ section.settings.btn_url | default: '/pages/kits' }}" class="aeron-btn" style="padding:15px 44px;font-size:11px;align-self:flex-start;">{{ section.settings.btn_label | default: 'Build Your Kit →' }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Kit Feature",
+  "settings": [
+    { "type": "image_picker", "id": "image",      "label": "Kit photo" },
+    { "type": "text",         "id": "kicker",     "label": "Kicker text",    "default": "The APEX Kit" },
+    { "type": "textarea",     "id": "heading",    "label": "Heading",         "default": "One Kit. Everything." },
+    { "type": "textarea",     "id": "body",       "label": "Body text",       "default": "Starting from $45 CAD. Every kit includes full sublimation, AERON embroidered logo, and TPU raised crest." },
+    { "type": "text",         "id": "price_from", "label": "Price prefix",    "default": "from" },
+    { "type": "text",         "id": "price",      "label": "Price",           "default": "$45" },
+    { "type": "text",         "id": "price_unit", "label": "Price suffix",    "default": "CAD / jersey" },
+    { "type": "text",         "id": "btn_label",  "label": "Button text",     "default": "Build Your Kit →" },
+    { "type": "url",          "id": "btn_url",    "label": "Button URL" }
+  ],
+  "blocks": [{ "type": "bullet", "name": "Feature Bullet", "settings": [
+    { "type": "text",     "id": "title",       "label": "Title",       "default": "Full Sublimation" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Unlimited colours and patterns." }
+  ]}],
+  "presets": [{ "name": "Kit Feature", "blocks": [
+    { "type": "bullet", "settings": { "title": "Full Sublimation",          "description": "Unlimited colours, patterns, and gradients." } },
+    { "type": "bullet", "settings": { "title": "AERON Embroidered Logo",    "description": "On every kit. Included at no extra cost." } },
+    { "type": "bullet", "settings": { "title": "TPU Raised Club Crest",     "description": "Your badge in textured TPU. Included." } },
+    { "type": "bullet", "settings": { "title": "Free Ship on 100+ Units",   "description": "Anywhere in Canada." } }
+  ]}]
+}
+{% endschema %}

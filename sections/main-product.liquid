@@ -1,0 +1,58 @@
+{% comment %}AERON — Product page{% endcomment %}
+<div style="max-width:1100px;margin:80px auto;padding:0 60px;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;" class="pdp-grid">
+    <div>
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | img_url: '800x800', crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}" style="width:100%;border:1px solid rgba(15,26,43,.06);" width="800" height="800">
+      {% endif %}
+      {% if product.images.size > 1 %}
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:3px;">
+          {% for img in product.images limit:8 %}
+            <img src="{{ img | img_url: '200x200', crop: 'center' }}" alt="{{ img.alt | escape }}" style="width:100%;cursor:pointer;border:2px solid transparent;" loading="lazy" onclick="document.querySelector('.pdp-main-img').src='{{ img | img_url: "800x800", crop: "center" }}'">
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#A88B4A;margin-bottom:8px;">{{ product.type }}</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,6vw,72px);letter-spacing:4px;color:#0F1A2B;line-height:.9;margin-bottom:18px;">{{ product.title }}</h1>
+      <div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#0F1A2B;margin-bottom:22px;">{{ product.price | money }}</div>
+      {% form 'product', product %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {% for option in product.options_with_values %}
+          <div style="margin-bottom:16px;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.38);margin-bottom:8px;">{{ option.name }}</div>
+            <div style="display:flex;gap:3px;flex-wrap:wrap;">
+              {% for value in option.values %}
+                <label style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;padding:10px 16px;border:2px solid rgba(15,26,43,.07);cursor:pointer;transition:all .2s;">
+                  <input type="radio" name="option-{{ option.position }}" value="{{ value }}" style="display:none;" {% if option.selected_value == value %}checked{% endif %} onchange="this.closest('form').querySelector('[name=id]').value=''">
+                  {{ value }}
+                </label>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+        <div style="margin-bottom:18px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.38);margin-bottom:8px;">Quantity</div>
+          <input type="number" name="quantity" value="1" min="1" style="width:80px;padding:12px;border:1px solid rgba(15,26,43,.12);font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;text-align:center;-webkit-appearance:none;">
+        </div>
+        {% if product.available %}
+          <button type="submit" name="add" class="aeron-btn" style="padding:17px 52px;font-size:12px;border-radius:0;">Add to Cart</button>
+        {% else %}
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.35);padding:17px 0;">Sold Out</div>
+        {% endif %}
+      {% endform %}
+      {% if product.description != blank %}
+        <div style="margin-top:32px;padding-top:32px;border-top:1px solid rgba(15,26,43,.06);font-family:'Barlow Condensed',sans-serif;font-size:15px;color:rgba(15,26,43,.6);line-height:1.75;">{{ product.description }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<style>
+.pdp-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+@media(max-width:900px){.pdp-grid{grid-template-columns:1fr!important;}}
+</style>
+
+{% schema %}
+{"name": "Product"}
+{% endschema %}

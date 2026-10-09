@@ -1,0 +1,69 @@
+<section style="padding:100px 60px 60px;background:#0F1A2B;position:relative;overflow:hidden;">
+  <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:260px;color:rgba(255,255,255,.018);right:-20px;top:50%;transform:translateY(-50%);pointer-events:none;letter-spacing:-8px;line-height:1;">SQUADS</div>
+  <div style="position:relative;z-index:2;max-width:900px;">
+    <div class="kicker-w">Our Teams</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,9vw,110px);letter-spacing:4px;color:#fff;line-height:.86;margin-bottom:18px;">The<br>Squads.</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.38);line-height:1.65;max-width:520px;margin-bottom:30px;">Four Montr&eacute;al clubs. One kit studio. Every team that wears AERON is part of the story.</div>
+    <a href="/pages/kits#project" class="aeron-btn" style="padding:14px 40px;font-size:11px;">Join Them &rarr;</a>
+  </div>
+</section>
+
+<section style="padding:0 60px 100px;background:#0F1A2B;">
+  <div class="gallery-grid">
+    {% for block in section.blocks %}
+      <div class="gallery-cell{% if block.settings.tall %} tall{% endif %}{% if block.settings.wide %} wide{% endif %}" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          <img src="{{ block.settings.image | img_url: '1200x' }}" class="gallery-img" alt="{{ block.settings.team_name | escape }}" loading="lazy">
+        {% else %}
+          <div class="gallery-ph" style="min-height:240px;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="gallery-ph-lbl">{{ block.settings.team_name | default: 'Team Name' }}</div>
+          </div>
+        {% endif %}
+        <div class="gallery-lbl">
+          <div class="gallery-lbl-name">{{ block.settings.team_name }}</div>
+          <div class="gallery-lbl-sub">{{ block.settings.location | default: 'Montréal, QC' }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section-mid" style="text-align:center;">
+  <div class="reveal">
+    <div class="kicker-w">Your Team</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,80px);letter-spacing:4px;color:#fff;line-height:.9;margin-bottom:20px;">Your Squad<br>is Next.</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.38);margin-bottom:36px;">Custom APEX kits. $20 deposit to start. Mockup in 24 hours.</div>
+    <a href="/pages/kits#project" class="aeron-btn" style="padding:17px 56px;font-size:12px;">Start a Project &rarr;</a>
+  </div>
+</section>
+
+<style>@media(max-width:900px){section[style*="padding:0 60px"]{padding:0 22px 80px!important;}}</style>
+
+{% schema %}
+{
+  "name": "Gallery Page",
+  "blocks": [
+    {
+      "type": "team",
+      "name": "Team",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Team photo" },
+        { "type": "text", "id": "team_name", "label": "Team name" },
+        { "type": "text", "id": "location", "label": "Location", "default": "Montréal, QC" },
+        { "type": "checkbox", "id": "tall", "label": "Tall (2 rows tall)", "default": false },
+        { "type": "checkbox", "id": "wide", "label": "Wide (2 cols wide)", "default": false }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Gallery Page",
+    "blocks": [
+      { "type": "team" },
+      { "type": "team" },
+      { "type": "team" },
+      { "type": "team" }
+    ]
+  }]
+}
+{% endschema %}

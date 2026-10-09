@@ -1,0 +1,57 @@
+<style>
+.photo-strip{overflow:hidden;position:relative;padding:0;background:#0F1A2B;}
+.photo-strip::before,.photo-strip::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;}
+.photo-strip::before{left:0;background:linear-gradient(to right,#0F1A2B,transparent);}
+.photo-strip::after{right:0;background:linear-gradient(to left,#0F1A2B,transparent);}
+.photo-track{display:flex;gap:3px;width:max-content;animation:photoScroll 35s linear infinite;}
+.photo-track:hover{animation-play-state:paused;}
+@keyframes photoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.photo-item{position:relative;flex-shrink:0;overflow:hidden;}
+.photo-item img{height:{{ section.settings.height | default: 320 }}px;width:auto;display:block;object-fit:cover;transition:transform .5s;}
+.photo-item:hover img{transform:scale(1.04);}
+.photo-item-lbl{position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(transparent,rgba(15,26,43,.85));}
+.photo-item-name{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;}
+.photo-item-sub{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:#E8C97A;margin-top:2px;}
+.photo-ph{height:{{ section.settings.height | default: 320 }}px;width:220px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+.photo-ph span{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.2);}
+</style>
+
+<div class="photo-strip">
+  <div class="photo-track">
+    {% for block in section.blocks %}{% for i in (1..2) %}
+      <div class="photo-item" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          <img src="{{ block.settings.image | img_url: '600x' }}" alt="{{ block.settings.team_name | escape }}" loading="lazy">
+        {% else %}
+          <div class="photo-ph">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>{{ block.settings.team_name | default: 'Team Photo' }}</span>
+          </div>
+        {% endif %}
+        {% if block.settings.team_name != blank %}
+          <div class="photo-item-lbl">
+            <div class="photo-item-name">{{ block.settings.team_name }}</div>
+            {% if block.settings.location != blank %}<div class="photo-item-sub">{{ block.settings.location }}</div>{% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}{% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Team Photo Strip",
+  "settings": [
+    { "type": "range", "id": "height", "label": "Strip height (px)", "min": 200, "max": 500, "step": 20, "default": 320 }
+  ],
+  "blocks": [{ "type": "photo", "name": "Team Photo", "settings": [
+    { "type": "image_picker", "id": "image",     "label": "Photo" },
+    { "type": "text",         "id": "team_name", "label": "Team name" },
+    { "type": "text",         "id": "location",  "label": "Location", "default": "Montréal, QC" }
+  ]}],
+  "presets": [{ "name": "Team Photo Strip", "blocks": [
+    { "type": "photo" }, { "type": "photo" }, { "type": "photo" }, { "type": "photo" }
+  ]}]
+}
+{% endschema %}

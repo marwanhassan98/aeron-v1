@@ -1,0 +1,36 @@
+<section class="section section-dk">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:48px;" class="reveal">
+      <div class="kicker-w">{{ section.settings.kicker | default: 'What Captains Say' }}</div>
+      <div class="heading-w">{{ section.settings.heading | default: 'Real Teams. Real Results.' }}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat({{ section.blocks.size | at_most: 3 }},1fr);gap:2px;" class="test-grid-home">
+      {% for block in section.blocks %}
+        <div class="test-card reveal" {{ block.shopify_attributes }}>
+          <div class="test-q">&ldquo;</div>
+          <div class="test-body">{{ block.settings.quote | default: 'Add a captain quote here.' }}</div>
+          <div class="test-name">{{ block.settings.team | default: 'Team Name' }}</div>
+          <div class="test-role">{{ block.settings.role | default: 'Team Captain — Montréal' }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<style>@media(max-width:900px){.test-grid-home{grid-template-columns:1fr!important;}}</style>
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "kicker",  "label": "Kicker text", "default": "What Captains Say" },
+    { "type": "text", "id": "heading", "label": "Heading",     "default": "Real Teams. Real Results." }
+  ],
+  "blocks": [{ "type": "testimonial", "name": "Testimonial", "settings": [
+    { "type": "textarea", "id": "quote", "label": "Quote" },
+    { "type": "text",     "id": "team",  "label": "Team name" },
+    { "type": "text",     "id": "role",  "label": "Role", "default": "Team Captain — Montréal" }
+  ]}],
+  "presets": [{ "name": "Testimonials", "blocks": [
+    { "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" }
+  ]}]
+}
+{% endschema %}

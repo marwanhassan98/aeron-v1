@@ -1,0 +1,8 @@
+<div id="mobile-menu" aria-hidden="true">
+  <a class="mm-link{% if request.path == '/' %} active{% endif %}" href="{{ routes.root_url }}" onclick="closeMenu()">Home</a>
+  <div class="mm-divider"></div>
+  <a class="mm-link{% if request.path contains '/pages/kits' %} active{% endif %}" href="/pages/kits" onclick="closeMenu()">Kits</a>
+  <a class="mm-link{% if request.path contains '/collections/grip-socks' %} active{% endif %}" href="/collections/grip-socks" onclick="closeMenu()">Grip Socks</a>
+  <a class="mm-link{% if request.path contains '/pages/gallery' %} active{% endif %}" href="/pages/gallery" onclick="closeMenu()">Teams</a>
+  <a class="aeron-btn" href="/pages/kits#project" onclick="closeMenu()" style="margin-top:18px;padding:14px 52px;font-size:11px;">Start a Project</a>
+</div>

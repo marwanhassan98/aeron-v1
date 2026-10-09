@@ -1,0 +1,20 @@
+<div class="mq-strip">
+  <div class="mq-track">
+    {% for block in section.blocks %}
+      <span class="mq-item{% if block.settings.gold %} mq-gold{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+    {% else %}
+      <span class="mq-item mq-gold">APEX</span><span class="mq-item">One Kit. Everything Premium.</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Custom Football Kits</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Montr&eacute;al</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">AERON Embroidered Logo Included</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Full Sublimation</span><span class="mq-item mq-gold">&mdash;</span>
+      <span class="mq-item mq-gold">APEX</span><span class="mq-item">One Kit. Everything Premium.</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Custom Football Kits</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Montr&eacute;al</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">AERON Embroidered Logo Included</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Full Sublimation</span><span class="mq-item mq-gold">&mdash;</span>
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Marquee Strip",
+  "blocks": [{ "type": "item", "name": "Marquee Item", "settings": [
+    { "type": "text",     "id": "text", "label": "Text", "default": "Custom Football Kits" },
+    { "type": "checkbox", "id": "gold", "label": "Gold color", "default": false }
+  ]}],
+  "presets": [{ "name": "Marquee Strip" }]
+}
+{% endschema %}
