@@ -1,10 +1,1 @@
-{
-  "sections": {
-    "main": {
-      "type": "page-kits"
-    }
-  },
-  "order": [
-    "main"
-  ]
-}
+{"sections":{"main":{"type":"page-kits","settings":{}}},"order":["main"]}

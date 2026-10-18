@@ -1,10 +1,1 @@
-{
-  "sections": {
-    "main": {
-      "type": "collection-socks"
-    }
-  },
-  "order": [
-    "main"
-  ]
-}
+{"sections":{"main":{"type":"collection-socks","settings":{}}},"order":["main"]}
