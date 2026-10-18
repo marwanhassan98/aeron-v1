@@ -1,0 +1,22 @@
+{% comment %}AERON — 404{% endcomment %}
+<section class="section section-dk" style="position:relative;overflow:hidden;text-align:center;min-height:70vh;display:flex;align-items:center;justify-content:center;">
+  <div aria-hidden="true" style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:clamp(200px,40vw,420px);color:rgba(255,255,255,.03);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;line-height:1;">404</div>
+  <div style="position:relative;max-width:560px;">
+    <div class="kicker-w">{{ 'general.404.kicker' | t }}</div>
+    <h1 class="heading-w">{{ 'general.404.title' | t }}</h1>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.7);line-height:1.65;margin:18px 0 32px;">{{ 'general.404.text' | t }}</p>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-bar search-bar-dark" style="margin:0 auto 28px;">
+      <label class="visually-hidden" for="Search404">{{ 'general.search.label' | t }}</label>
+      <input type="search" id="Search404" name="q" placeholder="{{ 'general.search.placeholder' | t }}" class="f-input">
+      <button type="submit" class="aeron-btn">{{ 'general.search.submit' | t }}</button>
+    </form>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="{{ routes.root_url }}" class="aeron-btn">{{ 'general.404.home' | t }}</a>
+      <a href="/pages/kits#project" class="aeron-btn-outline-w">{{ 'general.start_project' | t }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{"name": "404"}
+{% endschema %}

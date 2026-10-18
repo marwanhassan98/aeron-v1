@@ -1,8 +1,32 @@
 {
   "general": {
-    "meta": { "page": "Page {{ page }}" },
+    "meta": {
+      "page": "Page {{ page }}"
+    },
     "start_project": "Start a Project",
-    "skip_to_content": "Skip to content"
+    "skip_to_content": "Skip to content",
+    "pagination": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "404": {
+      "kicker": "Off the pitch",
+      "title": "Page Not Found.",
+      "text": "The page you're looking for has moved or doesn't exist. Try a search, or head back home.",
+      "home": "Back to Home"
+    },
+    "search": {
+      "kicker": "Search",
+      "title": "Search.",
+      "results_for": "Results for “{{ terms }}”",
+      "label": "Search the store",
+      "placeholder": "Search kits, socks, pages…",
+      "submit": "Search",
+      "no_results": "No results for “{{ terms }}”. Try a different word.",
+      "count": {
+        "one": "{{ count }} result",
+        "other": "{{ count }} results"
+      }
+    }
   },
   "cart": {
     "kicker": "Your Order",
@@ -25,7 +49,14 @@
     "product": {
       "add_to_cart": "Add to Cart",
       "sold_out": "Sold Out",
-      "unavailable": "Unavailable"
+      "unavailable": "Unavailable",
+      "from": "From"
+    }
+  },
+  "collections": {
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
     }
   }
 }

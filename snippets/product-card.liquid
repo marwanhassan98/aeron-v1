@@ -1,0 +1,23 @@
+{% comment %}
+  Product grid card.
+  Accepts: product (required), sizes (optional, image sizes attribute)
+{% endcomment %}
+<a href="{{ product.url }}" class="prod-card">
+  <div class="prod-img">
+    {%- if product.featured_image -%}
+      {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300, 400, 600, 800', sizes: sizes | default: '(max-width: 600px) 100vw, (max-width: 900px) 50vw, 360px', alt: product.featured_image.alt | default: product.title }}
+    {%- else -%}
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:4px;color:rgba(15,26,43,.1);">AERON</div>
+    {%- endif -%}
+  </div>
+  <div class="prod-info">
+    {%- if product.type != blank -%}<div class="prod-cat">{{ product.type }}</div>{%- endif -%}
+    <h3 class="prod-name">{{ product.title }}</h3>
+    <div class="prod-price">
+      {%- if product.price_varies -%}{{ 'products.product.from' | t }} {% endif -%}
+      {{ product.price | money }}
+      {%- if product.compare_at_price > product.price -%} <s class="prod-compare">{{ product.compare_at_price | money }}</s>{%- endif -%}
+    </div>
+    {%- unless product.available -%}<div class="prod-cat" style="margin-top:8px;">{{ 'products.product.sold_out' | t }}</div>{%- endunless -%}
+  </div>
+</a>

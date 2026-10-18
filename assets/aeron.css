@@ -217,6 +217,34 @@ button{cursor:pointer;}
 .prod-name{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;margin-bottom:6px;}
 .prod-price{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:#0F1A2B;}
 
+.prod-card{display:block;}
+.prod-compare{font-size:12px;font-weight:400;color:rgba(15,26,43,.5);margin-left:6px;}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+@media(max-width:900px){.prod-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.prod-grid{grid-template-columns:1fr;}}
+
+/* SEARCH BAR, PAGINATION, EMPTY STATES */
+.search-bar{display:flex;max-width:560px;}
+.search-bar .f-input{flex:1;}
+.search-bar .aeron-btn{border-radius:0;padding:13px 22px;}
+.search-bar-dark .f-input{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#fff;}
+.search-bar-dark .f-input::placeholder{color:rgba(255,255,255,.45);}
+.pager{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:40px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;}
+.pager-link{color:#0F1A2B;font-weight:700;border-bottom:1px solid #C6A962;padding-bottom:2px;}
+.pager-info{color:rgba(15,26,43,.6);}
+.empty-note{font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(15,26,43,.65);line-height:1.6;padding:40px 0;text-align:center;}
+
+/* RICH TEXT */
+.rte{font-family:'Barlow',sans-serif;font-size:16px;color:rgba(15,26,43,.8);line-height:1.75;}
+.rte>*+*{margin-top:16px;}
+.rte h2,.rte h3{font-family:'Orbitron',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;line-height:1.2;margin-top:32px;}
+.rte h2{font-size:20px;}.rte h3{font-size:15px;}
+.rte a{color:#0F1A2B;text-decoration:underline;text-decoration-color:#C6A962;text-underline-offset:3px;}
+.rte ul,.rte ol{padding-left:22px;}
+.rte img{height:auto;}
+.rte table{width:100%;border-collapse:collapse;}
+.rte td,.rte th{border:1px solid rgba(15,26,43,.1);padding:8px 10px;text-align:left;}
+
 /* VARIANT PILLS */
 .variant-group{margin-bottom:18px;}
 .variant-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.38);margin-bottom:8px;}

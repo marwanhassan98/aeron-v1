@@ -1,0 +1,19 @@
+{% comment %}AERON — Generic page{% endcomment %}
+<section class="section">
+  <div style="max-width:{{ section.settings.width }}px;margin:0 auto;">
+    {%- if section.settings.kicker != blank -%}<div class="kicker">{{ section.settings.kicker }}</div>{%- endif -%}
+    <h1 class="heading">{{ page.title }}</h1>
+    <div class="gold-bar"></div>
+    <div class="rte" style="margin-top:36px;">{{ page.content }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+    { "type": "text",  "id": "kicker", "label": "Kicker", "default": "AERON Sportswear" },
+    { "type": "range", "id": "width",  "label": "Content width (px)", "min": 600, "max": 1100, "step": 50, "default": 800 }
+  ]
+}
+{% endschema %}

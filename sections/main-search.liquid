@@ -1,0 +1,41 @@
+{% comment %}AERON — Search results{% endcomment %}
+<section class="section">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="kicker">{{ 'general.search.kicker' | t }}</div>
+    <h1 class="heading">{%- if search.performed -%}{{ 'general.search.results_for' | t: terms: search.terms }}{%- else -%}{{ 'general.search.title' | t }}{%- endif -%}</h1>
+    <div class="gold-bar"></div>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-bar" style="margin:32px 0 40px;">
+      <label class="visually-hidden" for="SearchMain">{{ 'general.search.label' | t }}</label>
+      <input type="search" id="SearchMain" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="f-input">
+      <button type="submit" class="aeron-btn">{{ 'general.search.submit' | t }}</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- paginate search.results by 12 -%}
+        {%- if search.results_count == 0 -%}
+          <p class="empty-note">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
+        {%- else -%}
+          <p class="empty-note" style="padding:0 0 18px;text-align:left;">{{ 'general.search.count' | t: count: search.results_count }}</p>
+          <div class="prod-grid">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {%- render 'product-card', product: item -%}
+              {%- else -%}
+                <a href="{{ item.url }}" class="prod-card" style="padding:24px;">
+                  <div class="prod-cat">{{ item.object_type | capitalize }}</div>
+                  <h3 class="prod-name">{{ item.title }}</h3>
+                  <p style="font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(15,26,43,.65);line-height:1.55;">{{ item.content | strip_html | truncatewords: 24 }}</p>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          {%- render 'pagination', paginate: paginate -%}
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{"name": "Search"}
+{% endschema %}

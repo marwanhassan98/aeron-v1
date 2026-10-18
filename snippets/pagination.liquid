@@ -1,0 +1,8 @@
+{% comment %}Accepts: paginate (required){% endcomment %}
+{%- if paginate.pages > 1 -%}
+  <nav class="pager" aria-label="{{ 'general.pagination' | t }}">
+    {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="pager-link" rel="prev">&larr; {{ 'general.previous' | t }}</a>{%- endif -%}
+    <span class="pager-info">{{ 'general.meta.page' | t: page: paginate.current_page }} / {{ paginate.pages }}</span>
+    {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="pager-link" rel="next">{{ 'general.next' | t }} &rarr;</a>{%- endif -%}
+  </nav>
+{%- endif -%}
