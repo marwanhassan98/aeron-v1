@@ -1,16 +1,24 @@
 /* AERON Sportswear — Global CSS v2.0 */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;color-scheme:light;}
-body{font-family:'Barlow',sans-serif;background:#fff;color:#0F1A2B;overflow-x:hidden;cursor:none;}
+body{font-family:'Barlow',sans-serif;background:#fff;color:#0F1A2B;overflow-x:hidden;}
 img{display:block;max-width:100%;}
 a{text-decoration:none;}
 button{cursor:pointer;}
 .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 
-/* CURSOR */
-#aeron-cur{width:10px;height:10px;border-radius:50%;background:#C6A962;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .14s,height .14s;}
-#aeron-crng{width:36px;height:36px;border-radius:50%;border:1px solid rgba(198,169,98,.5);position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .28s,height .28s;}
-@media(hover:none){#aeron-cur,#aeron-crng{display:none;}body{cursor:auto;}}
+/* CURSOR (decorative trailing ring; the system cursor stays visible) */
+#aeron-crng{width:36px;height:36px;border-radius:50%;border:1px solid rgba(198,169,98,.5);position:fixed;left:-100px;top:-100px;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .28s,height .28s,opacity .3s;opacity:0;}
+#aeron-crng.on{opacity:1;}
+#aeron-crng.big{width:54px;height:54px;}
+@media(hover:none),(pointer:coarse){#aeron-crng{display:none;}}
+
+/* FOCUS & SKIP LINK */
+:focus-visible{outline:2px solid #C6A962;outline-offset:3px;}
+.skip-link{position:fixed;top:-60px;left:16px;z-index:10000;background:#0F1A2B;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:12px 18px;transition:top .2s;}
+.skip-link:focus{top:12px;}
+main:focus{outline:none;}
+.opt-card:focus-visible{outline:2px solid #C6A962;outline-offset:2px;}
 
 /* GOLD BUTTON */
 @keyframes goldFlow{0%{background-position:100% 0}100%{background-position:-100% 0}}
@@ -39,6 +47,10 @@ button{cursor:pointer;}
 #main-nav.nav-dark .nav-links a{color:rgba(255,255,255,.45);}
 #main-nav.nav-dark .nav-links a:hover,#main-nav.nav-dark .nav-links a.active{color:#fff;}
 .nav-right{display:flex;align-items:center;gap:12px;}
+.nav-cart{font-family:'Barlow Condensed',sans-serif;color:rgba(15,26,43,.7);display:flex;align-items:center;gap:6px;padding:6px;transition:color .2s;}
+.nav-cart:hover{color:#A88B4A;}
+.nav-cart-count{font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;background:#C6A962;color:#0F1A2B;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.mm-nav{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;z-index:1;}
 .burger-btn{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
 .burger-btn span{display:block;width:24px;height:2px;background:#0F1A2B;transition:all .35s cubic-bezier(.77,0,.175,1);}
 #main-nav.nav-dark .burger-btn span{background:#fff;}
@@ -50,7 +62,7 @@ button{cursor:pointer;}
 #mobile-menu{position:fixed;inset:0;z-index:900;background:#0F1A2B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transform:translateX(100%);transition:transform .48s cubic-bezier(.77,0,.175,1);}
 #mobile-menu.open{transform:translateX(0);}
 #mobile-menu::before{content:'AERON';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:180px;color:rgba(255,255,255,.022);pointer-events:none;letter-spacing:-6px;}
-.mm-link{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,62px);letter-spacing:5px;color:rgba(255,255,255,.15);text-decoration:none;transition:color .2s;padding:6px 0;position:relative;z-index:1;}
+.mm-link{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,62px);letter-spacing:5px;color:rgba(255,255,255,.62);text-decoration:none;transition:color .2s;padding:6px 0;position:relative;z-index:1;}
 .mm-link:hover,.mm-link.active{color:#fff;}
 .mm-divider{width:44px;height:1px;background:rgba(198,169,98,.18);margin:7px 0;}
 

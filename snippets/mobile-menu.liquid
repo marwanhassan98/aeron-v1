@@ -1,8 +1,20 @@
-<div id="mobile-menu" aria-hidden="true">
-  <a class="mm-link{% if request.path == '/' %} active{% endif %}" href="{{ routes.root_url }}" onclick="closeMenu()">Home</a>
-  <div class="mm-divider"></div>
-  <a class="mm-link{% if request.path contains '/pages/kits' %} active{% endif %}" href="/pages/kits" onclick="closeMenu()">Kits</a>
-  <a class="mm-link{% if request.path contains '/collections/grip-socks' %} active{% endif %}" href="/collections/grip-socks" onclick="closeMenu()">Grip Socks</a>
-  <a class="mm-link{% if request.path contains '/pages/gallery' %} active{% endif %}" href="/pages/gallery" onclick="closeMenu()">Teams</a>
-  <a class="aeron-btn" href="/pages/kits#project" onclick="closeMenu()" style="margin-top:18px;padding:14px 52px;font-size:11px;">Start a Project</a>
+{% comment %}
+  Full-screen mobile menu, rendered by the header section.
+  Accepts: menu (link_list), blocks (header nav_link blocks), cta_url, cta_label
+{% endcomment %}
+<div id="mobile-menu" aria-hidden="true" inert>
+  <nav aria-label="{{ 'header.mobile_nav' | t }}" class="mm-nav">
+    <a class="mm-link{% if request.path == routes.root_url %} active{% endif %}" href="{{ routes.root_url }}">{{ 'header.home' | t }}</a>
+    <div class="mm-divider"></div>
+    {%- if menu.links.size > 0 -%}
+      {%- for link in menu.links -%}
+        <a class="mm-link{% if link.current or link.child_active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for block in blocks -%}
+        <a class="mm-link{% if request.path contains block.settings.url %} active{% endif %}" href="{{ block.settings.url }}">{{ block.settings.label }}</a>
+      {%- endfor -%}
+    {%- endif -%}
+    <a class="aeron-btn" href="{{ cta_url }}" style="margin-top:18px;padding:14px 52px;font-size:11px;">{{ cta_label }}</a>
+  </nav>
 </div>

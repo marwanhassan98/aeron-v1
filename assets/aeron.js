@@ -2,16 +2,18 @@
 (function(){
 'use strict';
 
-/* CURSOR */
-var cur=document.getElementById('aeron-cur'),crng=document.getElementById('aeron-crng');
-if(cur&&crng&&window.matchMedia('(hover:hover)').matches){
-  var mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(loop);})();
-  document.querySelectorAll('a,button,.opt-card,.prod-card,.gallery-cell').forEach(function(el){
-    el.addEventListener('mouseenter',function(){cur.style.width='18px';cur.style.height='18px';crng.style.width='54px';crng.style.height='54px';});
-    el.addEventListener('mouseleave',function(){cur.style.width='10px';cur.style.height='10px';crng.style.width='36px';crng.style.height='36px';});
-  });
+/* CURSOR: decorative trailing ring for fine pointers (system cursor stays visible) */
+var crng=document.getElementById('aeron-crng');
+if(crng&&window.matchMedia('(hover:hover) and (pointer:fine)').matches&&!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+  var mx=-100,my=-100,rx=-100,ry=-100,raf=0;
+  function loop(){
+    rx+=(mx-rx)*.18;ry+=(my-ry)*.18;
+    crng.style.left=rx+'px';crng.style.top=ry+'px';
+    raf=(Math.abs(mx-rx)>.1||Math.abs(my-ry)>.1)?requestAnimationFrame(loop):0;
+  }
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;crng.classList.add('on');if(!raf)raf=requestAnimationFrame(loop);},{passive:true});
+  document.addEventListener('mouseleave',function(){crng.classList.remove('on');});
+  document.addEventListener('mouseover',function(e){crng.classList.toggle('big',!!e.target.closest('a,button,.opt-card,.prod-card,.gallery-cell,label'));});
 }
 
 /* NAV SCROLL */
@@ -23,18 +25,25 @@ if(nav){
 }
 
 /* MOBILE MENU */
-window.toggleMenu=function(){
+function setMenu(open){
   var btn=document.getElementById('burgerBtn'),menu=document.getElementById('mobile-menu');
   if(!btn||!menu)return;
-  btn.classList.toggle('open');menu.classList.toggle('open');
-  document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
-};
-window.closeMenu=function(){
-  var btn=document.getElementById('burgerBtn'),menu=document.getElementById('mobile-menu');
-  if(!btn||!menu)return;
-  btn.classList.remove('open');menu.classList.remove('open');
-  document.body.style.overflow='';
-};
+  btn.classList.toggle('open',open);menu.classList.toggle('open',open);
+  btn.setAttribute('aria-expanded',open?'true':'false');
+  menu.setAttribute('aria-hidden',open?'false':'true');
+  if(open)menu.removeAttribute('inert');else menu.setAttribute('inert','');
+  document.body.style.overflow=open?'hidden':'';
+  if(open){var f=menu.querySelector('a');if(f)f.focus();}
+}
+window.toggleMenu=function(){var m=document.getElementById('mobile-menu');setMenu(!(m&&m.classList.contains('open')));};
+window.closeMenu=function(){setMenu(false);};
+var burger=document.getElementById('burgerBtn'),mmenu=document.getElementById('mobile-menu');
+if(burger)burger.addEventListener('click',window.toggleMenu);
+if(mmenu)mmenu.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false);});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&mmenu&&mmenu.classList.contains('open')){setMenu(false);if(burger)burger.focus();}
+});
+window.addEventListener('resize',function(){if(window.innerWidth>900&&mmenu&&mmenu.classList.contains('open'))setMenu(false);});
 
 /* SCROLL REVEAL */
 var ro=new IntersectionObserver(function(entries){
@@ -106,6 +115,16 @@ if(overlay){
 
 /* ── KIT CONFIGURATOR (kits page only) ── */
 if(!document.getElementById('build'))return;
+
+/* Option cards are divs with inline onclick: make them keyboard operable and expose state */
+function syncPressed(){document.querySelectorAll('.opt-card').forEach(function(c){c.setAttribute('aria-pressed',c.classList.contains('on')?'true':'false');});}
+document.querySelectorAll('.opt-card').forEach(function(c){c.setAttribute('role','button');c.setAttribute('tabindex','0');});
+document.addEventListener('keydown',function(e){
+  var c=e.target.closest&&e.target.closest('.opt-card');
+  if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();c.click();}
+});
+document.addEventListener('click',function(e){if(e.target.closest('.opt-card'))syncPressed();});
+syncPressed();
 
 var jMOQ={10:45,50:40,100:37,200:34,500:31};
 var sMOQ={10:55,50:50,100:46,200:42,500:38};

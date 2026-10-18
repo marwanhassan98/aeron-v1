@@ -102,5 +102,16 @@
     "success_code_html": "Use code <strong style=\"color:#0F1A2B;font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;\">{{ code }}</strong> at checkout.",
     "success_text": "Thanks for joining. Watch your inbox.",
     "continue": "Continue shopping"
+  },
+  "header": {
+    "main_nav": "Main",
+    "mobile_nav": "Mobile",
+    "menu": "Menu",
+    "home": "Home"
+  },
+  "kits": {
+    "qty_label": "Number of jerseys",
+    "fewer_logos": "Fewer sponsor logos",
+    "more_logos": "More sponsor logos"
   }
 }

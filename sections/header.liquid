@@ -2,44 +2,55 @@
 #main-nav .aeron-btn{padding:10px 22px;font-size:10px;}
 @media(max-width:900px){#main-nav .aeron-btn{display:none;}}
 </style>
-<nav id="main-nav">
-  <a href="{{ routes.root_url }}" style="text-decoration:none;display:flex;align-items:center;">
-    {% if settings.logo_dark != blank %}
-      <img src="{{ settings.logo_dark | img_url: '200x' }}" alt="{{ shop.name }}" class="nav-logo" width="120" height="32">
-    {% else %}
+{%- assign menu = section.settings.menu -%}
+{%- assign cta_url = section.settings.cta_url | default: '/pages/kits#project' -%}
+{%- assign cta_label = section.settings.cta_label | default: 'Start a Project' -%}
+<nav id="main-nav" aria-label="{{ 'header.main_nav' | t }}">
+  <a href="{{ routes.root_url }}" style="text-decoration:none;display:flex;align-items:center;" aria-label="{{ shop.name }}">
+    {%- if settings.logo_dark != blank -%}
+      {{ settings.logo_dark | image_url: width: 400 | image_tag: class: 'nav-logo', widths: '200, 400', sizes: '120px', alt: shop.name }}
+    {%- else -%}
       <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;color:#0F1A2B;">{{ shop.name }}</span>
-    {% endif %}
+    {%- endif -%}
   </a>
   <ul class="nav-links">
-    {% for block in section.blocks %}
-      <li><a href="{{ block.settings.url }}"{% if request.path == block.settings.url %} class="active"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label }}</a></li>
-    {% endfor %}
+    {%- if menu.links.size > 0 -%}
+      {%- for link in menu.links -%}
+        <li><a href="{{ link.url }}"{% if link.current or link.child_active %} class="active" aria-current="page"{% endif %}>{{ link.title }}</a></li>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for block in section.blocks -%}
+        <li><a href="{{ block.settings.url }}"{% if request.path == block.settings.url %} class="active" aria-current="page"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label }}</a></li>
+      {%- endfor -%}
+    {%- endif -%}
   </ul>
   <div class="nav-right">
-    <a href="{{ routes.cart_url }}" aria-label="{{ 'cart.link_label' | t: count: cart.item_count }}" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(15,26,43,.55);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;" onmouseover="this.style.color='#C6A962'" onmouseout="this.style.color='rgba(15,26,43,.55)'">
+    <a href="{{ routes.cart_url }}" aria-label="{{ 'cart.link_label' | t: count: cart.item_count }}" class="nav-cart">
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      {% if cart.item_count > 0 %}<span style="font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;background:#C6A962;color:#0F1A2B;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;">{{ cart.item_count }}</span>{% endif %}
+      {%- if cart.item_count > 0 -%}<span class="nav-cart-count" aria-hidden="true">{{ cart.item_count }}</span>{%- endif -%}
     </a>
-    <a href="{{ section.settings.cta_url | default: '/pages/kits#project' }}" class="aeron-btn">{{ section.settings.cta_label | default: 'Start a Project' }}</a>
-    <button class="burger-btn" id="burgerBtn" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a href="{{ cta_url }}" class="aeron-btn">{{ cta_label }}</a>
+    <button type="button" class="burger-btn" id="burgerBtn" aria-label="{{ 'header.menu' | t }}" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div style="height:70px;"></div>
+{% render 'mobile-menu', menu: menu, blocks: section.blocks, cta_url: cta_url, cta_label: cta_label %}
 {% schema %}
 {
   "name": "Header",
   "settings": [
-    { "type": "text", "id": "cta_label", "label": "CTA button text", "default": "Start a Project" },
-    { "type": "url",  "id": "cta_url",   "label": "CTA button URL" }
+    { "type": "link_list", "id": "menu",      "label": "Menu", "info": "Used for the desktop and mobile navigation. If empty, the Nav Link blocks below are used." },
+    { "type": "text",      "id": "cta_label", "label": "CTA button text", "default": "Start a Project" },
+    { "type": "url",       "id": "cta_url",   "label": "CTA button URL" }
   ],
   "blocks": [{ "type": "nav_link", "name": "Nav Link", "settings": [
     { "type": "text", "id": "label", "label": "Label", "default": "Kits" },
     { "type": "url",  "id": "url",   "label": "URL" }
   ]}],
-  "presets": [{"name": "Header", "blocks": [
+  "default": {"blocks": [
     { "type": "nav_link", "settings": { "label": "Kits",       "url": "/pages/kits" } },
     { "type": "nav_link", "settings": { "label": "Grip Socks", "url": "/collections/grip-socks" } },
     { "type": "nav_link", "settings": { "label": "Teams",      "url": "/pages/gallery" } }
-  ]}]
+  ]}
 }
 {% endschema %}

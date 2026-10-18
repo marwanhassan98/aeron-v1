@@ -21,12 +21,11 @@
   </style>
 </head>
 <body>
-  <div id="aeron-cur"></div>
+  <a class="skip-link" href="#main-content">{{ 'general.skip_to_content' | t }}</a>
   <div id="aeron-crng"></div>
   {%- if settings.popup_enabled and template.name != 'cart' and template.suffix != 'kits' -%}{% render 'popup' %}{%- endif -%}
-  {% render 'mobile-menu' %}
   {% section 'header' %}
-  <main id="main-content">{{ content_for_layout }}</main>
+  <main id="main-content" tabindex="-1">{{ content_for_layout }}</main>
   {% section 'footer' %}
   <script src="{{ 'aeron.js' | asset_url }}" defer></script>
   <script>document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('ready');});</script>
