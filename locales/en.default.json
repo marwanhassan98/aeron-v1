@@ -78,5 +78,11 @@
     "shop": "Start Shopping",
     "wallet": "Add to Apple Wallet",
     "print": "Print"
+  },
+  "offer": {
+    "line": "{{ deposit }} deposit to start · {{ timeline }}",
+    "deposit_to_start": "{{ deposit }} deposit to start",
+    "deposit_word": "deposit",
+    "cta_line": "Custom APEX kits. {{ deposit }} deposit to start. Ready in {{ timeline }}."
   }
 }

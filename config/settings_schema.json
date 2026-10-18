@@ -48,5 +48,26 @@
         "label": "Instagram URL"
       }
     ]
+  },
+  {
+    "name": "Offer",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Used on the kits page, CTA banners and the gallery page. Change the offer here once."
+      },
+      {
+        "type": "text",
+        "id": "offer_deposit",
+        "label": "Deposit",
+        "default": "50%"
+      },
+      {
+        "type": "text",
+        "id": "offer_timeline",
+        "label": "Timeline",
+        "default": "4–5 weeks, design included"
+      }
+    ]
   }
 ]

@@ -6,7 +6,7 @@
     <div class="reveal">
       <div class="kicker-w">{{ section.settings.kicker | default: 'Start Today' }}</div>
       <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,8vw,96px);letter-spacing:4px;color:#fff;line-height:.88;margin-bottom:20px;">{{ section.settings.heading | default: 'Your Squad is Next.' }}</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.38);margin-bottom:40px;letter-spacing:1px;">{{ section.settings.subheading | default: 'Custom APEX kits. $20 deposit to start. Mockup in 24 hours.' }}</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.38);margin-bottom:40px;letter-spacing:1px;">{% if section.settings.subheading != blank %}{{ section.settings.subheading }}{% else %}{% render 'offer-line', key: 'offer.cta_line' %}{% endif %}</div>
       <a href="{{ section.settings.btn_url | default: '/pages/kits#project' }}" class="aeron-btn" style="padding:18px 60px;font-size:12px;">{{ section.settings.btn_label | default: 'Start a Project →' }}</a>
     </div>
   </div>
@@ -19,7 +19,7 @@
     { "type": "image_picker", "id": "bg_image",   "label": "Background photo (optional)" },
     { "type": "text",         "id": "kicker",     "label": "Kicker text",    "default": "Start Today" },
     { "type": "text",         "id": "heading",    "label": "Heading",        "default": "Your Squad is Next." },
-    { "type": "textarea",     "id": "subheading", "label": "Subheading",     "default": "Custom APEX kits. $20 deposit to start. Mockup in 24 hours." },
+    { "type": "textarea",     "id": "subheading", "label": "Subheading", "info": "Leave blank to show the offer from Theme settings → Offer." },
     { "type": "text",         "id": "btn_label",  "label": "Button text",    "default": "Start a Project →" },
     { "type": "url",          "id": "btn_url",    "label": "Button URL" }
   ],

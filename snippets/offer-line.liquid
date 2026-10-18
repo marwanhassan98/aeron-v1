@@ -1,0 +1,2 @@
+{% comment %}Renders the global offer, e.g. "50% deposit to start · 4–5 weeks, design included". Accepts: key (optional locale key, default 'offer.line'){% endcomment %}
+{{- key | default: 'offer.line' | t: deposit: settings.offer_deposit, timeline: settings.offer_timeline -}}
