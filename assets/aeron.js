@@ -84,12 +84,6 @@ if(overlay){
   if(!sessionStorage.getItem('aeronPopupSeen'))setTimeout(openPopup,2200);
 }
 
-/* FILE UPLOAD */
-window.showFileNames=function(input){
-  var el=document.getElementById('fileNames');
-  if(el)el.textContent=Array.from(input.files).map(function(f){return f.name;}).join(', ')||'';
-};
-
 /* ── KIT CONFIGURATOR (kits page only) ── */
 if(!document.getElementById('build'))return;
 
@@ -164,14 +158,10 @@ function updatePrice(){
 }
 updatePrice();
 
-/* FORM SUBMIT */
-window.submitProject=async function(e){
-  e.preventDefault();
-  var btn=document.getElementById('payBtn');
-  if(!btn)return;
-  btn.disabled=true;btn.textContent='Sending...';
+/* FORM SUBMIT: copy the configurator into the contact form, then let it post */
+window.submitProject=function(){
   var kitType=selKit==='shorts'?'APEX Jersey + Shorts':'APEX Jersey Only';
-  var lines=['=== AERON ORDER SUMMARY ===','Kit: '+kitType,'Quantity: '+qty,'Collar: '+collarName+(collarUp>0?' (+$'+collarUp+'/jersey)':''),'Add-Ons:'];
+  var lines=['Kit: '+kitType,'Quantity: '+qty,'Collar: '+collarName+(collarUp>0?' (+$'+collarUp+'/jersey)':''),'Add-Ons:'];
   if(addons.names)lines.push('  - Player Names & Numbers (+$5/jersey)');
   if(addons.spon)lines.push('  - Sponsor Logo: '+sponCount+' logo(s) (+$'+(3*sponCount)+'/jersey)');
   if(addons.emb)lines.push('  - Embroidered Crest (+$4/jersey)');
@@ -179,16 +169,11 @@ window.submitProject=async function(e){
   if(!addons.names&&!addons.spon&&!addons.emb&&!addons.socks)lines.push('  - None');
   var pt=document.getElementById('pTotal');
   lines.push('Estimated Total: '+(pt?pt.textContent:'N/A'));
-  var summary=lines.join('\n');
-  var sf=document.getElementById('supplierSummary');if(sf)sf.value=summary;
-  var form=document.getElementById('projForm');if(!form)return;
-  try{sessionStorage.setItem('aeronBrief',summary);}catch(x){}
-  try{await fetch('/',{method:'POST',body:new FormData(form)});}catch(err){}
-  form.style.display='none';
-  var succ=document.getElementById('proj-success');
-  if(succ){succ.style.display='block';succ.scrollIntoView({behavior:'smooth'});}
-  var depositUrl=form.dataset.deposit;
-  if(depositUrl&&depositUrl.length>3){setTimeout(function(){window.location.href=depositUrl;},2500);}
+  var sf=document.getElementById('supplierSummary');if(sf)sf.value=lines.join('\n');
+  var btn=document.getElementById('payBtn');
+  if(btn){btn.disabled=true;btn.textContent='Sending...';}
 };
+var projForm=document.getElementById('projForm');
+if(projForm)projForm.addEventListener('submit',window.submitProject);
 
 })();

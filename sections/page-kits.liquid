@@ -178,7 +178,7 @@
       <div class="kicker">{{ section.settings.proj_kicker | default: "Start a Project" }}</div>
       <div class="heading">{{ section.settings.proj_heading | default: "Ready to Take Flight?" }}</div>
       <div class="gold-bar"></div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(15,26,43,.55);margin-top:18px;max-width:520px;line-height:1.7;">Fill in your details and upload your logo files. Pay the $20 deposit to lock in your spot. Mockup within 24 hours. Production 7&ndash;15 business days after approval.</p>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(15,26,43,.55);margin-top:18px;max-width:520px;line-height:1.7;">{{ section.settings.proj_body }}</p>
       {% if settings.whatsapp != blank %}
         <a href="https://wa.me/{{ settings.whatsapp }}" target="_blank" style="display:inline-flex;align-items:center;gap:9px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.5);border:1px solid rgba(15,26,43,.15);padding:12px 24px;text-decoration:none;margin-top:16px;transition:all .25s;" onmouseover="this.style.borderColor='#C6A962';this.style.color='#0F1A2B'" onmouseout="this.style.borderColor='rgba(15,26,43,.15)';this.style.color='rgba(15,26,43,.5)'">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -191,64 +191,56 @@
       <div class="reveal">
         <div style="display:flex;gap:14px;padding:18px 0;border-top:1px solid rgba(15,26,43,.06);border-bottom:1px solid rgba(15,26,43,.06);"><div style="width:40px;height:40px;flex-shrink:0;background:#F2F2F2;border:1px solid rgba(15,26,43,.06);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A88B4A" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div><div style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;margin-bottom:4px;">Full Design Consultation</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.55);line-height:1.55;">We work with your colours, patterns, and identity. You never start from scratch.</div></div></div>
         <div style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(15,26,43,.06);"><div style="width:40px;height:40px;flex-shrink:0;background:#F2F2F2;border:1px solid rgba(15,26,43,.06);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A88B4A" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;margin-bottom:4px;">Mockup in 24 Hours</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.55);line-height:1.55;">Full digital APEX kit mockup before production starts.</div></div></div>
-        <div style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(15,26,43,.06);"><div style="width:40px;height:40px;flex-shrink:0;background:#F2F2F2;border:1px solid rgba(15,26,43,.06);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A88B4A" stroke-width="1.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div><div><div style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;margin-bottom:4px;">3 Revision Rounds Free</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.55);line-height:1.55;">We refine until it is right. The $20 is credited to your final invoice.</div></div></div>
-        <div style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(15,26,43,.06);"><div style="width:40px;height:40px;flex-shrink:0;background:#F2F2F2;border:1px solid rgba(15,26,43,.06);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A88B4A" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;margin-bottom:4px;">Money-Back Guarantee</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.55);line-height:1.55;">Not happy after all revisions? We return your $20. No questions asked.</div></div></div>
+        <div style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(15,26,43,.06);"><div style="width:40px;height:40px;flex-shrink:0;background:#F2F2F2;border:1px solid rgba(15,26,43,.06);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A88B4A" stroke-width="1.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div><div><div style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;margin-bottom:4px;">3 Revision Rounds Free</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.55);line-height:1.55;">We refine until it is right. No extra design fees.</div></div></div>
+        <div style="display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(15,26,43,.06);"><div style="width:40px;height:40px;flex-shrink:0;background:#F2F2F2;border:1px solid rgba(15,26,43,.06);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A88B4A" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div><div style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;margin-bottom:4px;">50% Deposit to Start</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.55);line-height:1.55;">Approve your quote, pay half, and we get to work. Design and production take 4&ndash;5 weeks.</div></div></div>
       </div>
 
       <div class="reveal">
-        <form id="projForm" name="start-a-project" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" enctype="multipart/form-data" data-deposit="{{ section.settings.deposit_product_url }}" onsubmit="submitProject(event)" style="display:flex;flex-direction:column;gap:12px;">
-          <input type="hidden" name="form-name" value="start-a-project">
-          <input name="bot-field" style="display:none">
-          <input type="hidden" name="supplier-summary" id="supplierSummary">
-          <div class="f-row">
-            <div class="f-group"><label class="f-label">Team Name</label><input class="f-input" type="text" name="team-name" placeholder="FC Example" required></div>
-            <div class="f-group"><label class="f-label">Your Name</label><input class="f-input" type="text" name="your-name" placeholder="John Doe" required></div>
-          </div>
-          <div class="f-row">
-            <div class="f-group"><label class="f-label">Email</label><input class="f-input" type="email" name="email" placeholder="you@team.com" required></div>
-            <div class="f-group"><label class="f-label">Phone (optional)</label><input class="f-input" type="tel" name="phone" placeholder="+1 514 000 0000"></div>
-          </div>
-          <div class="f-row">
-            <div class="f-group"><label class="f-label">Kit Type</label><select class="f-select" name="kit-type"><option value="">Select...</option><option>APEX Jersey Only</option><option>APEX Jersey + Shorts</option></select></div>
-            <div class="f-group"><label class="f-label">Quantity</label><select class="f-select" name="quantity"><option value="">Select...</option><option>10 &ndash; 49</option><option>50 &ndash; 99</option><option>100 &ndash; 199</option><option>200 &ndash; 499</option><option>500+</option></select></div>
-          </div>
-          <div class="f-group"><label class="f-label">Vision &amp; Notes</label><textarea class="f-textarea" name="notes" placeholder="Colours, patterns, collar preference, add-ons, deadline, player sizes..."></textarea></div>
-          <div class="f-group">
-            <label class="f-label">Club Crest &amp; Sponsor Logos</label>
-            <div class="file-upload" onclick="document.getElementById('logoFiles').click()">
-              <input type="file" id="logoFiles" name="logo-files" multiple accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps" onchange="showFileNames(this)">
-              <div class="file-label"><strong>Click to upload your logo files</strong><br>PNG, SVG, PDF, AI, EPS &middot; Multiple files supported</div>
-              <div class="file-names" id="fileNames"></div>
+        {%- form 'contact', id: 'projForm', class: 'proj-form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="proj-success" style="display:block;margin-top:0;" role="status">
+              <div class="proj-success-ttl">Request Received.</div>
+              <div class="proj-success-msg">{{ section.settings.proj_success }}</div>
+              {%- if settings.whatsapp != blank -%}<a href="https://wa.me/{{ settings.whatsapp }}" target="_blank" rel="noopener" class="aeron-btn" style="padding:16px 48px;font-size:11px;">Message us on WhatsApp</a>{%- endif -%}
             </div>
-          </div>
-          <div class="dep-card">
-            <div class="dep-row">
-              <div><div class="dep-ttl">Design Deposit</div><div class="dep-sub">Credited to your final order &mdash; response in 24h</div></div>
-              <div class="dep-amt">$20<small> CAD</small></div>
+          {%- else -%}
+            {%- if form.errors -%}
+              <div class="form-error" role="alert">Please check the following and try again:{{ form.errors | default_errors }}</div>
+            {%- endif -%}
+            <input type="hidden" name="contact[Configurator Summary]" id="supplierSummary">
+            <div class="f-row">
+              <div class="f-group"><label class="f-label" for="pf-team">Team Name</label><input class="f-input" id="pf-team" type="text" name="contact[Team Name]" placeholder="FC Example" autocomplete="organization" required></div>
+              <div class="f-group"><label class="f-label" for="pf-name">Your Name</label><input class="f-input" id="pf-name" type="text" name="contact[Name]" placeholder="John Doe" autocomplete="name" required></div>
             </div>
-            <div class="dep-feats">
-              <div class="dep-feat">Full design consultation</div>
-              <div class="dep-feat">Custom APEX kit mockup</div>
-              <div class="dep-feat">Up to 3 revisions free</div>
-              <div class="dep-feat">$20 credited to final invoice</div>
-              <div class="dep-feat">Priority production queue</div>
-              <div class="dep-feat">Response within 24 hours</div>
+            <div class="f-row">
+              <div class="f-group"><label class="f-label" for="pf-email">Email</label><input class="f-input" id="pf-email" type="email" name="contact[email]" placeholder="you@team.com" autocomplete="email" value="{{ form.email }}" required></div>
+              <div class="f-group"><label class="f-label" for="pf-phone">Phone (optional)</label><input class="f-input" id="pf-phone" type="tel" name="contact[Phone]" placeholder="+1 514 000 0000" autocomplete="tel"></div>
             </div>
-            <div class="dep-guarantee">Not happy with your mockup after all revisions? We return your $20. No questions asked.</div>
-            <div class="dep-stripe">Secured by Shopify &mdash; Apple Pay &middot; Google Pay &middot; All Cards</div>
-            <button type="submit" class="aeron-btn aeron-btn-full" id="payBtn" style="padding:17px;font-size:11px;display:block;border-radius:0;">Submit Details &amp; Continue to Payment</button>
-          </div>
-        </form>
-        <div id="proj-success" class="proj-success">
-          <div class="proj-success-ttl">Project Started.</div>
-          <div class="proj-success-msg">Details received. Now pay the $20 deposit to lock in your spot.</div>
-          {% if section.settings.deposit_product_url != blank %}
-            <a href="{{ section.settings.deposit_product_url }}" class="aeron-btn" style="padding:16px 48px;font-size:11px;">Add $20 Deposit to Cart &rarr;</a>
-          {% else %}
-            <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.5);">We will follow up with a payment link within 24 hours.</p>
-          {% endif %}
-          <p style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(15,26,43,.35);margin-top:14px;">We&rsquo;ll also follow up within 24 hours.</p>
-        </div>
+            <div class="f-row">
+              <div class="f-group"><label class="f-label" for="pf-kit">Kit Type</label><select class="f-select" id="pf-kit" name="contact[Kit Type]"><option value="">Select...</option><option>APEX Jersey Only</option><option>APEX Jersey + Shorts</option></select></div>
+              <div class="f-group"><label class="f-label" for="pf-qty">Quantity</label><select class="f-select" id="pf-qty" name="contact[Quantity]"><option value="">Select...</option><option>10 &ndash; 49</option><option>50 &ndash; 99</option><option>100 &ndash; 199</option><option>200 &ndash; 499</option><option>500+</option></select></div>
+            </div>
+            <div class="f-group"><label class="f-label" for="pf-notes">Vision &amp; Notes</label><textarea class="f-textarea" id="pf-notes" name="contact[Notes]" placeholder="Colours, patterns, collar preference, add-ons, deadline, player sizes..."></textarea></div>
+            <div class="file-note">
+              <strong>Club crest &amp; sponsor logos:</strong> email them to <a href="mailto:{{ settings.email | default: shop.email }}">{{ settings.email | default: shop.email }}</a> with your team name in the subject. Vector files (AI, SVG, PDF, EPS) or high-res PNG.
+            </div>
+            <div class="dep-card">
+              <div class="dep-row">
+                <div><div class="dep-ttl">How It Works</div><div class="dep-sub">Quote first &mdash; response within 24 hours</div></div>
+                <div class="dep-amt">50%<small> deposit</small></div>
+              </div>
+              <div class="dep-feats">
+                <div class="dep-feat">Full design consultation</div>
+                <div class="dep-feat">Custom APEX kit mockup</div>
+                <div class="dep-feat">Up to 3 revisions free</div>
+                <div class="dep-feat">50% deposit to start</div>
+                <div class="dep-feat">4&ndash;5 weeks incl. design</div>
+                <div class="dep-feat">Response within 24 hours</div>
+              </div>
+              <button type="submit" class="aeron-btn aeron-btn-full" id="payBtn" style="padding:17px;font-size:11px;display:block;border-radius:0;">Send Project Request</button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
       </div>
     </div>
   </div>
@@ -273,7 +265,7 @@
     { "type": "image_picker", "id": "img_emb",      "label": "Embroidered Crest photo" },
     { "type": "image_picker", "id": "img_socks",    "label": "Grip Socks photo" },
     { "type": "header",       "content": "Project Form" },
-    { "type": "url", "id": "deposit_product_url", "label": "$20 Deposit Product URL", "info": "In Shopify Admin create a product called AERON Design Deposit priced at $20, then paste its URL here e.g. /products/aeron-design-deposit" },
+    { "type": "richtext", "id": "proj_success", "label": "Success message", "default": "<p>Thanks — your project request is in. We'll reply within 24 hours with your quote and next steps.</p>" },
     { "type": "header",       "content": "Build Section" },
     { "type": "text",         "id": "build_kicker",  "label": "Build kicker",   "default": "Configure" },
     { "type": "text",         "id": "build_heading", "label": "Build heading",  "default": "Build Your Kit." },
@@ -282,7 +274,7 @@
     { "type": "header",       "content": "Project Section" },
     { "type": "text",         "id": "proj_kicker",   "label": "Project kicker",     "default": "Start a Project" },
     { "type": "text",         "id": "proj_heading",  "label": "Project heading",    "default": "Ready to Take Flight?" },
-    { "type": "textarea",     "id": "proj_body",     "label": "Project body text",  "default": "Fill in your details and upload your logo files. Pay the $20 deposit to lock in your spot. Mockup within 24 hours. Production 7–15 business days after approval." }
+    { "type": "textarea",     "id": "proj_body",     "label": "Project body text",  "default": "Tell us about your team and we'll reply within 24 hours with a quote. 50% deposit to start. Design and production take 4–5 weeks." }
   ],
   "blocks": [
     {
