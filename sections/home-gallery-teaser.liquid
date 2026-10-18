@@ -26,7 +26,7 @@
         {%- if block.settings.image == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}
         <div class="gallery-cell reveal" {{ block.shopify_attributes }}>
           {% if block.settings.image != blank %}
-            <img src="{{ block.settings.image | img_url: '800x' }}" class="gallery-img" alt="{{ block.settings.name | escape }}" loading="lazy" style="min-height:250px;">
+            {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'gallery-img', widths: '400, 600, 800, 1200', sizes: '(max-width: 900px) 50vw, 33vw', loading: 'lazy', alt: block.settings.name, style: 'min-height:250px;' }}
           {% else %}
             <div class="gallery-ph" style="min-height:250px;">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>

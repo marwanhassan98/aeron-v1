@@ -14,10 +14,8 @@
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
   <link rel="canonical" href="{{ canonical_url }}">
   {% render 'meta-tags' %}
-  {% if settings.favicon != blank %}<link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">{% endif %}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  {% if settings.favicon != blank %}<link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">{% endif %}
+  {% render 'fonts' %}
   {{ content_for_header }}
   {{ 'aeron.css' | asset_url | stylesheet_tag }}
 </head>
