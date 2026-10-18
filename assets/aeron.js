@@ -51,6 +51,12 @@ var ro=new IntersectionObserver(function(entries){
 },{threshold:.07});
 document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){ro.observe(el);});
 
+/* PAUSE LOOPING STRIPS WHILE OFF-SCREEN */
+var po=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){e.target.classList.toggle('paused',!e.isIntersecting);});
+});
+document.querySelectorAll('.mq-track,.photo-track').forEach(function(el){po.observe(el);});
+
 /* STAT COUNTERS */
 var sro=new IntersectionObserver(function(entries){
   entries.forEach(function(e){

@@ -4,7 +4,7 @@
 .photo-strip::before{left:0;background:linear-gradient(to right,#0F1A2B,transparent);}
 .photo-strip::after{right:0;background:linear-gradient(to left,#0F1A2B,transparent);}
 .photo-track{display:flex;gap:3px;width:max-content;animation:photoScroll 35s linear infinite;}
-.photo-track:hover{animation-play-state:paused;}
+.photo-track:hover,.photo-track.paused,.photo-strip:focus-within .photo-track{animation-play-state:paused;}
 @keyframes photoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .photo-item{position:relative;flex-shrink:0;overflow:hidden;}
 .photo-item img{height:{{ section.settings.height | default: 320 }}px;width:auto;display:block;object-fit:cover;transition:transform .5s;}

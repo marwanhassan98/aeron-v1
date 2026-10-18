@@ -76,10 +76,10 @@ main:focus{outline:none;}
 #popup-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;color:rgba(15,26,43,.66);cursor:pointer;line-height:1;padding:4px;}
 
 /* REVEALS */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
-.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
-.reveal-r{opacity:0;transform:translateX(28px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
-.reveal.vis,.reveal-l.vis,.reveal-r.vis{opacity:1;transform:translate(0);}
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+.js .reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+.js .reveal-r{opacity:0;transform:translateX(28px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+.js .reveal.vis,.js .reveal-l.vis,.js .reveal-r.vis{opacity:1;transform:translate(0);}
 
 /* TYPOGRAPHY HELPERS */
 .kicker{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#7A6331;margin-bottom:12px;}
@@ -194,7 +194,7 @@ main:focus{outline:none;}
 /* MARQUEE */
 .mq-strip{background:rgba(198,169,98,.07);border-top:1px solid rgba(198,169,98,.1);border-bottom:1px solid rgba(198,169,98,.1);padding:12px 0;overflow:hidden;}
 .mq-track{display:flex;width:max-content;animation:mqScroll 22s linear infinite;}
-.mq-track:hover{animation-play-state:paused;}
+.mq-track:hover,.mq-track.paused,.mq-strip:focus-within .mq-track{animation-play-state:paused;}
 @keyframes mqScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .mq-item{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:rgba(15,26,43,.66);padding:0 30px;white-space:nowrap;}
 .mq-gold{color:#7A6331;}
@@ -369,3 +369,11 @@ main:focus{outline:none;}
 /* ── CTA BANNER FIX ──────────────────────────────────────── */
 .cta-banner-inner{padding:100px 60px;text-align:center;position:relative;overflow:hidden;}
 @media(max-width:900px){.cta-banner-inner{padding:70px 28px!important;}}
+
+/* ── REDUCED MOTION ──────────────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+  .js .reveal,.js .reveal-l,.js .reveal-r{opacity:1;transform:none;}
+  .mq-track,.photo-track{animation:none!important;}
+}
