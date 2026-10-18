@@ -1,5 +1,7 @@
 # AERON Theme Audit — Phase 1
 
+> **Status (Phase 2):** the fixes below were implemented on the `fixes` branch, one commit per fix. See `git log main..fixes`. Decisions applied: 50% deposit, 4–5 weeks including design; Shopify new customer accounts (no `customers/*` templates); `team-orders` branch dropped.
+
 Audited branch: `main` @ `c21952b` · Date: 2026-10-17 · Tooling: Shopify CLI 3.94.1 `theme check` + manual review of every file.
 
 > **Scope note.** This audits the repo, not the live storefront. The last commit claims to mirror the live theme, but some findings (placeholder content, empty FAQ, missing images) depend on what is saved in the live theme editor. Step 0 of the fix plan is a `shopify theme pull` to confirm. The Team Orders page lives only on the unmerged `team-orders` branch and is not part of `main`.
