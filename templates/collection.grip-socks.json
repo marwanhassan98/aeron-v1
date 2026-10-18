@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "kicker": "Airborne Series",
+        "heading": "Launch Pads™",
+        "watermark": "SOCKS",
+        "text": "<p>Anti-slip silicone grip pads. Arch compression band. Seamless toe. Wear inside your regular football sock. Sizes US 9.5–12.</p>",
+        "show_image": false
+      },
+      "blocks": {
+        "soon-1": {
+          "type": "coming_soon",
+          "settings": {
+            "category": "Accessories",
+            "title": "Shin Guards",
+            "text": "Lightweight moulded protection. Slim profile, maximum coverage."
+          }
+        },
+        "soon-2": {
+          "type": "coming_soon",
+          "settings": {
+            "category": "Accessories",
+            "title": "Kit Bag",
+            "text": "Waterproof team bag. Custom sublimated with your club badge."
+          }
+        },
+        "soon-3": {
+          "type": "coming_soon",
+          "settings": {
+            "category": "Accessories",
+            "title": "Training Bibs",
+            "text": "Numbered mesh bibs. Breathable and lightweight."
+          }
+        }
+      },
+      "block_order": [
+        "soon-1",
+        "soon-2",
+        "soon-3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

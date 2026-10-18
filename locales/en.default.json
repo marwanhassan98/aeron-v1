@@ -57,7 +57,14 @@
     "product_count": {
       "one": "{{ count }} product",
       "other": "{{ count }} products"
-    }
+    },
+    "sort_by": "Sort by",
+    "from": "Minimum price",
+    "to": "Maximum price",
+    "apply": "Apply",
+    "clear": "Clear all",
+    "no_matches": "No products match these filters.",
+    "coming_soon": "Coming Soon"
   },
   "password": {
     "title": "Coming Soon",

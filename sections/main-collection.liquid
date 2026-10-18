@@ -1,0 +1,214 @@
+{% comment %}AERON — Collection page (any collection). Hero text falls back to the collection's own title/description.{% endcomment %}
+{%- assign c_heading = section.settings.heading | default: collection.title -%}
+{%- assign c_watermark = section.settings.watermark | default: collection.title | upcase -%}
+<style>
+.col-hero{padding:100px 60px 60px;background:#0F1A2B;position:relative;overflow:hidden;}
+.col-hero-wm{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:260px;color:rgba(255,255,255,.018);right:-20px;top:50%;transform:translateY(-50%);pointer-events:none;letter-spacing:-8px;line-height:1;white-space:nowrap;}
+.col-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.25;pointer-events:none;}
+.col-hero-inner{position:relative;z-index:2;max-width:900px;}
+.col-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,9vw,110px);letter-spacing:4px;color:#fff;line-height:.86;margin-bottom:18px;}
+.col-hero-text{font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);line-height:1.65;max-width:520px;}
+.col-hero-text p+p{margin-top:10px;}
+.col-body{padding:60px 60px 80px;}
+.col-wrap{max-width:1100px;margin:0 auto;}
+.col-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.col-count{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.66);}
+.col-sort{display:flex;align-items:center;gap:10px;}
+.col-sort .f-select{width:auto;padding:10px 34px 10px 12px;}
+.col-layout{display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start;}
+.col-layout.no-filters{grid-template-columns:1fr;}
+.col-filters details{border-top:1px solid rgba(15,26,43,.08);padding:14px 0;}
+.col-filters summary{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#0F1A2B;list-style:none;display:flex;justify-content:space-between;}
+.col-filters summary::-webkit-details-marker{display:none;}
+.col-filters summary::after{content:'+';color:#7A6331;}
+.col-filters details[open] summary::after{content:'\2212';}
+.col-opt{display:flex;align-items:center;gap:10px;margin-top:10px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(15,26,43,.8);}
+.col-opt input{width:16px;height:16px;accent-color:#C6A962;}
+.col-opt.disabled{opacity:.45;}
+.col-price{display:flex;gap:8px;margin-top:10px;}
+.col-price .f-input{padding:9px 10px;}
+.col-active{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.col-chip{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;color:#0F1A2B;border:1px solid rgba(198,169,98,.5);padding:6px 10px;}
+.col-chip:hover{border-color:#0F1A2B;}
+.col-apply{margin-top:16px;}
+.js .col-apply{display:none;}
+.col-soon{border:1px solid rgba(15,26,43,.06);background:#F2F2F2;}
+.col-soon-img{aspect-ratio:1;background:rgba(15,26,43,.04);display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(15,26,43,.06);overflow:hidden;}
+.col-soon-img img{width:100%;height:100%;object-fit:cover;opacity:.6;}
+.col-soon-ph{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:4px;color:rgba(15,26,43,.1);}
+.col-soon-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.66);border:1px solid rgba(15,26,43,.15);padding:10px 16px;display:inline-block;margin-top:14px;}
+@media(max-width:900px){
+  .col-hero{padding:72px 22px 44px;}
+  .col-body{padding:40px 22px 60px;}
+  .col-layout{grid-template-columns:1fr;gap:20px;}
+}
+</style>
+
+<section class="col-hero">
+  {%- if section.settings.show_image and collection.image -%}
+    {{ collection.image | image_url: width: 2000 | image_tag: class: 'col-hero-bg', widths: '750, 1100, 1500, 2000', sizes: '100vw', alt: '', fetchpriority: 'high' }}
+  {%- endif -%}
+  <div class="col-hero-wm" aria-hidden="true">{{ c_watermark }}</div>
+  <div class="col-hero-inner">
+    {%- if section.settings.kicker != blank -%}<div class="kicker-w">{{ section.settings.kicker }}</div>{%- endif -%}
+    <h1>{{ c_heading }}</h1>
+    {%- if section.settings.text != blank -%}
+      <div class="col-hero-text">{{ section.settings.text }}</div>
+    {%- elsif collection.description != blank -%}
+      <div class="col-hero-text">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="col-body">
+  <div class="col-wrap">
+    {%- paginate collection.products by section.settings.per_page -%}
+      {%- assign has_filters = false -%}
+      {%- if section.settings.show_filters and collection.filters.size > 0 -%}{%- assign has_filters = true -%}{%- endif -%}
+      <form class="col-form" action="{{ collection.url }}" method="get" data-col-form>
+        <div class="col-toolbar">
+          <div class="col-count" role="status">{{ 'collections.product_count' | t: count: collection.products_count }}</div>
+          {%- if section.settings.show_sort -%}
+            <div class="col-sort">
+              <label class="col-count" for="SortBy">{{ 'collections.sort_by' | t }}</label>
+              {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+              <select class="f-select" id="SortBy" name="sort_by">
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="col-layout{% unless has_filters %} no-filters{% endunless %}">
+          {%- if has_filters -%}
+            <div class="col-filters">
+              {%- for filter in collection.filters -%}
+                <details{% if filter.active_values.size > 0 or filter.min_value.value or filter.max_value.value %} open{% endif %}>
+                  <summary>{{ filter.label | escape }}</summary>
+                  {%- case filter.type -%}
+                    {%- when 'list', 'boolean' -%}
+                      {%- for value in filter.values -%}
+                        <label class="col-opt{% if value.count == 0 and value.active == false %} disabled{% endif %}">
+                          <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                          {{ value.label | escape }} ({{ value.count }})
+                        </label>
+                      {%- endfor -%}
+                    {%- when 'price_range' -%}
+                      <div class="col-price">
+                        <label class="visually-hidden" for="PriceMin">{{ 'collections.from' | t }}</label>
+                        <input class="f-input" id="PriceMin" type="number" inputmode="decimal" min="0" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" placeholder="{{ 0 | money_without_currency }}">
+                        <label class="visually-hidden" for="PriceMax">{{ 'collections.to' | t }}</label>
+                        <input class="f-input" id="PriceMax" type="number" inputmode="decimal" min="0" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
+                      </div>
+                  {%- endcase -%}
+                </details>
+              {%- endfor -%}
+              <button type="submit" class="aeron-btn col-apply">{{ 'collections.apply' | t }}</button>
+            </div>
+          {%- endif -%}
+
+          <div>
+            {%- if has_filters -%}
+              {%- capture active_chips -%}
+                {%- for filter in collection.filters -%}
+                  {%- for value in filter.active_values -%}<a class="col-chip" href="{{ value.url_to_remove }}">{{ value.label | escape }} &times;</a>{%- endfor -%}
+                  {%- if filter.min_value.value or filter.max_value.value -%}<a class="col-chip" href="{{ filter.url_to_remove }}">{{ filter.min_value.value | default: 0 | money }}&ndash;{{ filter.max_value.value | default: filter.range_max | money }} &times;</a>{%- endif -%}
+                {%- endfor -%}
+              {%- endcapture -%}
+              {%- if active_chips != blank -%}
+                <div class="col-active">{{ active_chips }}<a class="col-chip" href="{{ collection.url }}?sort_by={{ collection.sort_by }}">{{ 'collections.clear' | t }}</a></div>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if collection.products.size > 0 -%}
+              <div class="prod-grid">
+                {%- for product in collection.products -%}
+                  {%- render 'product-card', product: product -%}
+                {%- endfor -%}
+              </div>
+              {%- render 'pagination', paginate: paginate -%}
+            {%- else -%}
+              <div class="empty-note">
+                {%- if collection.filters.size > 0 and active_chips != blank -%}
+                  {{ 'collections.no_matches' | t }} <a href="{{ collection.url }}" style="color:#0F1A2B;text-decoration:underline;">{{ 'collections.clear' | t }}</a>
+                {%- else -%}
+                  {{ section.settings.empty_text }}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </form>
+    {%- endpaginate -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="prod-grid" style="margin-top:3px;">
+        {%- for block in section.blocks -%}
+          <div class="col-soon" {{ block.shopify_attributes }}>
+            <div class="col-soon-img">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300, 400, 600, 800', sizes: '(max-width: 600px) 100vw, (max-width: 900px) 50vw, 360px', alt: block.settings.title }}
+              {%- else -%}
+                <div class="col-soon-ph" aria-hidden="true">SOON</div>
+              {%- endif -%}
+            </div>
+            <div style="padding:18px 20px;">
+              {%- if block.settings.category != blank -%}<div class="prod-cat">{{ block.settings.category }}</div>{%- endif -%}
+              <h3 class="prod-name">{{ block.settings.title }}</h3>
+              {%- if block.settings.text != blank -%}<p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.66);line-height:1.55;margin-top:6px;">{{ block.settings.text }}</p>{%- endif -%}
+              <div class="col-soon-tag">{{ 'collections.coming_soon' | t }}</div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+(function(){
+  var form=document.querySelector('[data-col-form]');
+  if(!form)return;
+  form.addEventListener('change',function(e){
+    if(e.target.type==='number')return;
+    form.requestSubmit?form.requestSubmit():form.submit();
+  });
+  form.addEventListener('submit',function(){
+    form.querySelectorAll('input[type=number]').forEach(function(i){if(!i.value)i.disabled=true;});
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "header",   "content": "Hero" },
+    { "type": "text",     "id": "kicker",    "label": "Kicker", "default": "Shop AERON" },
+    { "type": "text",     "id": "heading",   "label": "Heading", "info": "Leave blank to use the collection title." },
+    { "type": "richtext", "id": "text",      "label": "Text", "info": "Leave blank to use the collection description." },
+    { "type": "text",     "id": "watermark", "label": "Background word", "info": "Leave blank to use the collection title." },
+    { "type": "checkbox", "id": "show_image","label": "Show collection image behind hero", "default": true },
+    { "type": "header",   "content": "Products" },
+    { "type": "range",    "id": "per_page",  "label": "Products per page", "min": 6, "max": 48, "step": 3, "default": 24 },
+    { "type": "checkbox", "id": "show_sort", "label": "Show sorting", "default": true },
+    { "type": "checkbox", "id": "show_filters", "label": "Show filters", "info": "Set up filters in the Shopify Search & Discovery app.", "default": true },
+    { "type": "text",     "id": "empty_text", "label": "Empty collection text", "default": "New products are on the way. Check back soon, or start a custom kit project with us." }
+  ],
+  "blocks": [
+    {
+      "type": "coming_soon",
+      "name": "Coming soon card",
+      "settings": [
+        { "type": "image_picker", "id": "image",    "label": "Image" },
+        { "type": "text",         "id": "category", "label": "Category", "default": "Accessories" },
+        { "type": "text",         "id": "title",    "label": "Title", "default": "New Product" },
+        { "type": "textarea",     "id": "text",     "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Collection" }]
+}
+{% endschema %}
