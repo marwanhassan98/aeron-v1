@@ -57,23 +57,6 @@ var po=new IntersectionObserver(function(entries){
 });
 document.querySelectorAll('.mq-track,.photo-track').forEach(function(el){po.observe(el);});
 
-/* STAT COUNTERS */
-var sro=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(!e.isIntersecting)return;
-    var el=e.target,target=+el.dataset.target,suffix=el.dataset.suffix||'',dur=1400,start=null;
-    function run(ts){
-      if(!start)start=ts;
-      var p=Math.min((ts-start)/dur,1),eased=1-Math.pow(1-p,3);
-      el.textContent=Math.round(eased*target)+suffix;
-      if(p<1)requestAnimationFrame(run);
-    }
-    requestAnimationFrame(run);
-    sro.unobserve(el);
-  });
-},{threshold:.5});
-document.querySelectorAll('[data-target]').forEach(function(el){sro.observe(el);});
-
 /* POPUP: dialog with focus trap; opens after a delay plus scroll/exit intent */
 var overlay=document.getElementById('popup-overlay'),lastFocus=null;
 function seen(){try{return sessionStorage.getItem('aeronPopupSeen');}catch(e){return '1';}}
