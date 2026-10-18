@@ -25,7 +25,7 @@
         <div id="pu-form-wrap" style="padding:44px 42px 34px;">
           <div class="kicker" style="margin-bottom:10px;">{{ 'popup.kicker' | t }}</div>
           <h2 id="popup-title" style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(20px,5vw,30px);line-height:.92;text-transform:uppercase;color:#0F1A2B;margin-bottom:10px;">{{ settings.popup_heading }}</h2>
-          <p style="font-family:'Barlow Condensed',sans-serif;font-size:15px;color:rgba(15,26,43,.65);margin-bottom:22px;line-height:1.55;">{{ settings.popup_text }}</p>
+          <p style="font-family:'Barlow Condensed',sans-serif;font-size:15px;color:rgba(15,26,43,.66);margin-bottom:22px;line-height:1.55;">{{ settings.popup_text }}</p>
           <input type="hidden" name="contact[tags]" value="newsletter,popup">
           <div style="display:flex;">
             <label class="visually-hidden" for="popupEmail">{{ 'popup.email' | t }}</label>
@@ -35,7 +35,7 @@
           {%- if form.errors -%}
             <div role="alert" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:#B33A3A;margin-top:8px;">{{ form.errors | default_errors }}</div>
           {%- endif -%}
-          <p style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(15,26,43,.6);margin-top:10px;text-align:center;">{{ 'popup.fine_print' | t }}</p>
+          <p style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(15,26,43,.66);margin-top:10px;text-align:center;">{{ 'popup.fine_print' | t }}</p>
           <button type="button" data-popup-dismiss class="pu-text-btn">{{ 'popup.no_thanks' | t }}</button>
         </div>
       {%- endif -%}

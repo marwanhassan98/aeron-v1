@@ -24,7 +24,7 @@
                 <a href="{{ item.url }}" class="prod-card" style="padding:24px;">
                   <div class="prod-cat">{{ item.object_type | capitalize }}</div>
                   <h3 class="prod-name">{{ item.title }}</h3>
-                  <p style="font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(15,26,43,.65);line-height:1.55;">{{ item.content | strip_html | truncatewords: 24 }}</p>
+                  <p style="font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(15,26,43,.66);line-height:1.55;">{{ item.content | strip_html | truncatewords: 24 }}</p>
                 </a>
               {%- endif -%}
             {%- endfor -%}

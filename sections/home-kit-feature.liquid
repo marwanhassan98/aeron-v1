@@ -6,7 +6,7 @@
 .kit-feat-body{padding:80px 72px;display:flex;flex-direction:column;justify-content:center;background:{{ section.settings.bg | default: '#0F1A2B' }};}
 .kit-feat-bullet{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
 .kit-feat-bullet-dot{width:6px;height:6px;border-radius:50%;background:#C6A962;flex-shrink:0;margin-top:7px;}
-.kit-feat-bullet-text{font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.55);line-height:1.5;}
+.kit-feat-bullet-text{font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);line-height:1.5;}
 .kit-feat-bullet-text strong{color:#fff;display:block;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px;}
 @media(max-width:900px){.kit-feat-grid{grid-template-columns:1fr!important;}.kit-feat-img{min-height:300px;}.kit-feat-body{padding:52px 28px;}}
 </style>
@@ -25,7 +25,7 @@
   <div class="kit-feat-body">
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#C6A962;margin-bottom:12px;">{{ section.settings.kicker | default: 'The APEX Kit' }}</div>
     <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,90px);letter-spacing:4px;color:#fff;line-height:.88;margin-bottom:20px;">{{ section.settings.heading | default: 'One Kit.<br>Everything.' }}</div>
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.42);line-height:1.7;margin-bottom:32px;max-width:420px;">{{ section.settings.body | default: 'Starting from $45 CAD. Every kit includes full sublimation, AERON embroidered logo, and TPU raised crest.' }}</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);line-height:1.7;margin-bottom:32px;max-width:420px;">{{ section.settings.body | default: 'Starting from $45 CAD. Every kit includes full sublimation, AERON embroidered logo, and TPU raised crest.' }}</div>
     <div style="margin-bottom:36px;">
       {% for block in section.blocks %}
         <div class="kit-feat-bullet" {{ block.shopify_attributes }}>
@@ -35,9 +35,9 @@
       {% endfor %}
     </div>
     <div style="display:flex;align-items:baseline;gap:10px;padding-top:22px;border-top:1px solid rgba(198,169,98,.12);margin-bottom:26px;">
-      <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);">{{ section.settings.price_from | default: 'from' }}</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.66);">{{ section.settings.price_from | default: 'from' }}</span>
       <span style="font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:1;" class="gold-text">{{ section.settings.price | default: '$45' }}</span>
-      <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.25);letter-spacing:2px;">{{ section.settings.price_unit | default: 'CAD / jersey' }}</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.66);letter-spacing:2px;">{{ section.settings.price_unit | default: 'CAD / jersey' }}</span>
     </div>
     <a href="{{ section.settings.btn_url | default: '/pages/kits' }}" class="aeron-btn" style="padding:15px 44px;font-size:11px;align-self:flex-start;">{{ section.settings.btn_label | default: 'Build Your Kit →' }}</a>
   </div>
