@@ -1,0 +1,60 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>{{ 'gift_card.title' | t: value: gift_card.initial_value | money }} — {{ shop.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@700;900&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+  {{ content_for_header }}
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:#F2F2F2;color:#0F1A2B;font-family:'Barlow Condensed',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;}
+    .gc{background:#0F1A2B;color:#fff;max-width:440px;width:100%;padding:40px 32px;text-align:center;position:relative;overflow:hidden;}
+    .gc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,#A88B4A,#E8C97A,#C6A962);}
+    .gc-brand{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:8px;color:#E8C97A;}
+    .gc-kicker{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.65);margin:4px 0 26px;}
+    .gc-amt{font-family:'Orbitron',sans-serif;font-size:40px;font-weight:900;color:#fff;}
+    .gc-bal{font-size:14px;color:rgba(255,255,255,.7);margin-top:6px;}
+    .gc-code{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;letter-spacing:3px;background:rgba(255,255,255,.06);border:1px dashed rgba(198,169,98,.5);padding:14px;margin:26px 0 10px;word-break:break-all;}
+    .gc-note{font-size:13px;color:rgba(255,255,255,.65);}
+    .gc-expired{font-size:14px;color:#ff8a8a;margin-top:12px;}
+    .gc-qr{display:inline-block;background:#fff;padding:10px;margin:22px 0 8px;}
+    .gc-qr img,.gc-qr canvas{display:block;}
+    .gc-btns{display:flex;flex-direction:column;gap:10px;margin-top:22px;}
+    .gc-btn{display:block;background:linear-gradient(110deg,#A88B4A,#E8C97A,#C6A962);color:#0F1A2B;font-family:'Orbitron',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:14px;text-decoration:none;border:none;cursor:pointer;}
+    .gc-btn-o{background:none;border:1px solid rgba(255,255,255,.25);color:#fff;}
+    @media print{body{background:#fff;}.gc-btns{display:none;}}
+  </style>
+</head>
+<body>
+  <main class="gc">
+    <div class="gc-brand">{{ shop.name | upcase }}</div>
+    <div class="gc-kicker">{{ 'gift_card.kicker' | t }}</div>
+    <div class="gc-amt">{{ gift_card.initial_value | money }}</div>
+    {%- if gift_card.balance != gift_card.initial_value -%}<div class="gc-bal">{{ 'gift_card.balance' | t: value: gift_card.balance | money }}</div>{%- endif -%}
+    {%- if gift_card.expired or gift_card.enabled == false -%}
+      <p class="gc-expired">{{ 'gift_card.disabled' | t }}</p>
+    {%- else -%}
+      <div class="gc-code" aria-label="{{ 'gift_card.code' | t }}">{{ gift_card.code | format_code }}</div>
+      {%- if gift_card.expires_on -%}<p class="gc-note">{{ 'gift_card.expires' | t: date: gift_card.expires_on | date: format: 'date' }}</p>{%- endif -%}
+      <div class="gc-qr" id="GiftCardQR" data-identifier="{{ gift_card.qr_identifier }}"></div>
+      <div class="gc-btns">
+        <a href="{{ shop.url }}" class="gc-btn">{{ 'gift_card.shop' | t }}</a>
+        {%- if gift_card.pass_url -%}<a href="{{ gift_card.pass_url }}" class="gc-btn gc-btn-o">{{ 'gift_card.wallet' | t }}</a>{%- endif -%}
+        <button type="button" class="gc-btn gc-btn-o" onclick="window.print()">{{ 'gift_card.print' | t }}</button>
+      </div>
+    {%- endif -%}
+  </main>
+  <script>
+    window.addEventListener('load',function(){
+      var el=document.getElementById('GiftCardQR');
+      if(el&&window.QRCode)new QRCode(el,{text:el.getAttribute('data-identifier'),width:120,height:120});
+    });
+  </script>
+</body>
+</html>

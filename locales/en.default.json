@@ -58,5 +58,25 @@
       "one": "{{ count }} product",
       "other": "{{ count }} products"
     }
+  },
+  "password": {
+    "title": "Coming Soon",
+    "email": "Your email",
+    "notify": "Notify Me",
+    "newsletter_success": "You're on the list. We'll email you when we launch.",
+    "password": "Enter password",
+    "enter": "Enter",
+    "wrong": "Wrong password. Try again."
+  },
+  "gift_card": {
+    "title": "{{ value }} gift card",
+    "kicker": "Gift Card",
+    "balance": "Remaining balance: {{ value }}",
+    "disabled": "This gift card is no longer active.",
+    "code": "Gift card code",
+    "expires": "Expires {{ date }}",
+    "shop": "Start Shopping",
+    "wallet": "Add to Apple Wallet",
+    "print": "Print"
   }
 }
