@@ -1,57 +1,149 @@
 {% comment %}AERON — Product page{% endcomment %}
-<div style="max-width:1100px;margin:80px auto;padding:0 60px;">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;" class="pdp-grid">
+{%- assign current = product.selected_or_first_available_variant -%}
+{%- assign main_img = current.featured_image | default: product.featured_image -%}
+<style>
+.pdp-wrap{max-width:1100px;margin:80px auto;padding:0 60px;}
+.pdp-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.pdp-main{background:#F2F2F2;border:1px solid rgba(15,26,43,.06);aspect-ratio:1;overflow:hidden;}
+.pdp-main img{width:100%;height:100%;object-fit:cover;}
+.pdp-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:3px;}
+.pdp-thumb{padding:0;border:2px solid transparent;background:#F2F2F2;aspect-ratio:1;overflow:hidden;transition:border-color .2s;}
+.pdp-thumb img{width:100%;height:100%;object-fit:cover;}
+.pdp-thumb[aria-current="true"],.pdp-thumb:hover{border-color:#C6A962;}
+.pdp-price{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#0F1A2B;}
+.pdp-price s{font-size:16px;font-weight:400;color:rgba(15,26,43,.5);}
+.pdp-fieldset{border:none;padding:0;margin:0 0 16px;min-width:0;}
+.variant-pill{position:relative;}
+.variant-pill input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;}
+.variant-pill:has(input:focus-visible){outline:2px solid #C6A962;outline-offset:2px;}
+.variant-pill.sold-out:hover{border-color:rgba(15,26,43,.07);}
+.pdp-qty{width:80px;padding:12px;border:1px solid rgba(15,26,43,.12);font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;text-align:center;-webkit-appearance:none;border-radius:0;}
+.pdp-add[disabled]{background:#E4E4E4;animation:none;color:rgba(15,26,43,.55);cursor:not-allowed;opacity:1;}
+.pdp-desc{margin-top:32px;padding-top:32px;border-top:1px solid rgba(15,26,43,.06);font-family:'Barlow Condensed',sans-serif;font-size:15px;color:rgba(15,26,43,.7);line-height:1.75;}
+.pdp-desc p+p{margin-top:12px;}
+.pdp-desc ul,.pdp-desc ol{margin:10px 0 0 20px;}
+@media(max-width:900px){
+  .pdp-wrap{margin:40px auto 60px;padding:0 22px;}
+  .pdp-grid{grid-template-columns:1fr;gap:32px;}
+}
+</style>
+
+<div class="pdp-wrap" data-pdp>
+  <div class="pdp-grid">
     <div>
-      {% if product.featured_image %}
-        <img src="{{ product.featured_image | img_url: '800x800', crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}" style="width:100%;border:1px solid rgba(15,26,43,.06);" width="800" height="800">
-      {% endif %}
-      {% if product.images.size > 1 %}
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:3px;">
-          {% for img in product.images limit:8 %}
-            <img src="{{ img | img_url: '200x200', crop: 'center' }}" alt="{{ img.alt | escape }}" style="width:100%;cursor:pointer;border:2px solid transparent;" loading="lazy" onclick="document.querySelector('.pdp-main-img').src='{{ img | img_url: "800x800", crop: "center" }}'">
-          {% endfor %}
+      <div class="pdp-main">
+        {%- if main_img -%}
+          {{ main_img | image_url: width: 1200 | image_tag: class: 'pdp-main-img', widths: '400, 600, 800, 1000, 1200', sizes: '(max-width: 900px) 100vw, 490px', alt: main_img.alt, fetchpriority: 'high', loading: 'eager' }}
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="pdp-thumbs">
+          {%- for img in product.images limit: 8 -%}
+            <button type="button" class="pdp-thumb" data-image-id="{{ img.id }}" data-src="{{ img | image_url: width: 1200 }}" data-srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 1200 }} 1200w" data-alt="{{ img.alt | escape }}" aria-label="{{ img.alt | default: product.title | escape }} ({{ forloop.index }})" {% if img.id == main_img.id %}aria-current="true"{% endif %}>
+              {{ img | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100, 200', sizes: '120px', alt: '' }}
+            </button>
+          {%- endfor -%}
         </div>
-      {% endif %}
+      {%- endif -%}
     </div>
     <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#A88B4A;margin-bottom:8px;">{{ product.type }}</div>
-      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,6vw,72px);letter-spacing:4px;color:#0F1A2B;line-height:.9;margin-bottom:18px;">{{ product.title }}</h1>
-      <div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#0F1A2B;margin-bottom:22px;">{{ product.price | money }}</div>
-      {% form 'product', product %}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        {% for option in product.options_with_values %}
-          <div style="margin-bottom:16px;">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.38);margin-bottom:8px;">{{ option.name }}</div>
-            <div style="display:flex;gap:3px;flex-wrap:wrap;">
-              {% for value in option.values %}
-                <label style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;padding:10px 16px;border:2px solid rgba(15,26,43,.07);cursor:pointer;transition:all .2s;">
-                  <input type="radio" name="option-{{ option.position }}" value="{{ value }}" style="display:none;" {% if option.selected_value == value %}checked{% endif %} onchange="this.closest('form').querySelector('[name=id]').value=''">
-                  {{ value }}
-                </label>
-              {% endfor %}
-            </div>
-          </div>
-        {% endfor %}
+      {%- if product.type != blank -%}<div class="kicker" style="margin-bottom:8px;">{{ product.type }}</div>{%- endif -%}
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(42px,6vw,72px);letter-spacing:4px;color:#0F1A2B;line-height:.9;margin-bottom:18px;">{{ product.title }}</h1>
+      <div class="pdp-price">
+        <span data-pdp-price>{{ current.price | money }}</span>
+        <s data-pdp-compare {% unless current.compare_at_price > current.price %}hidden{% endunless %}>{{ current.compare_at_price | money }}</s>
+      </div>
+      {%- form 'product', product -%}
+        <input type="hidden" name="id" value="{{ current.id }}" data-pdp-id>
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <fieldset class="pdp-fieldset variant-group">
+              <legend class="variant-label">{{ option.name }}</legend>
+              <div class="variant-pills">
+                {%- for value in option.values -%}
+                  <label class="variant-pill{% if option.selected_value == value %} active{% endif %}">
+                    <input type="radio" name="option{{ option.position }}" value="{{ value | escape }}" data-pdp-option="{{ forloop.parentloop.index0 }}" {% if option.selected_value == value %}checked{% endif %}>
+                    <span>{{ value }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
         <div style="margin-bottom:18px;">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.38);margin-bottom:8px;">Quantity</div>
-          <input type="number" name="quantity" value="1" min="1" style="width:80px;padding:12px;border:1px solid rgba(15,26,43,.12);font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;text-align:center;-webkit-appearance:none;">
+          <label class="variant-label" for="PdpQty" style="display:block;">{{ 'cart.quantity' | t }}</label>
+          <input type="number" id="PdpQty" name="quantity" value="1" min="1" inputmode="numeric" class="pdp-qty">
         </div>
-        {% if product.available %}
-          <button type="submit" name="add" class="aeron-btn" style="padding:17px 52px;font-size:12px;border-radius:0;">Add to Cart</button>
-        {% else %}
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(15,26,43,.35);padding:17px 0;">Sold Out</div>
-        {% endif %}
-      {% endform %}
-      {% if product.description != blank %}
-        <div style="margin-top:32px;padding-top:32px;border-top:1px solid rgba(15,26,43,.06);font-family:'Barlow Condensed',sans-serif;font-size:15px;color:rgba(15,26,43,.6);line-height:1.75;">{{ product.description }}</div>
-      {% endif %}
+        <button type="submit" name="add" class="aeron-btn pdp-add" style="padding:17px 52px;font-size:12px;border-radius:0;" data-pdp-add {% unless current.available %}disabled{% endunless %}>
+          {%- if current.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+        </button>
+      {%- endform -%}
+      {%- if product.description != blank -%}
+        <div class="pdp-desc">{{ product.description }}</div>
+      {%- endif -%}
     </div>
   </div>
+  <script type="application/json" data-pdp-variants>
+    [{%- for v in product.variants -%}{"id":{{ v.id }},"options":{{ v.options | json }},"available":{{ v.available | json }},"price":{{ v.price | money | json }},"compare":{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %},"image":{% if v.featured_image %}{{ v.featured_image.id }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+  </script>
 </div>
-<style>
-.pdp-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
-@media(max-width:900px){.pdp-grid{grid-template-columns:1fr!important;}}
-</style>
+
+<script>
+(function(){
+  var root=document.querySelector('[data-pdp]');
+  if(!root)return;
+  var variants=JSON.parse(root.querySelector('[data-pdp-variants]').textContent);
+  var idInput=root.querySelector('[data-pdp-id]'),addBtn=root.querySelector('[data-pdp-add]');
+  var priceEl=root.querySelector('[data-pdp-price]'),compareEl=root.querySelector('[data-pdp-compare]');
+  var mainImg=root.querySelector('.pdp-main-img');
+  var T={add:{{ 'products.product.add_to_cart' | t | json }},sold:{{ 'products.product.sold_out' | t | json }},na:{{ 'products.product.unavailable' | t | json }}};
+
+  function showImage(btn){
+    if(!btn||!mainImg)return;
+    mainImg.removeAttribute('srcset');
+    mainImg.src=btn.getAttribute('data-src');
+    mainImg.setAttribute('srcset',btn.getAttribute('data-srcset'));
+    mainImg.alt=btn.getAttribute('data-alt');
+    root.querySelectorAll('.pdp-thumb').forEach(function(t){t.setAttribute('aria-current',t===btn?'true':'false');});
+  }
+  root.addEventListener('click',function(e){var t=e.target.closest('.pdp-thumb');if(t)showImage(t);});
+
+  var radios=[].slice.call(root.querySelectorAll('[data-pdp-option]'));
+  if(!radios.length)return;
+  function selected(){
+    var s=[];
+    radios.forEach(function(r){if(r.checked)s[+r.getAttribute('data-pdp-option')]=r.value;});
+    return s;
+  }
+  function match(sel){
+    return variants.filter(function(v){return v.options.every(function(o,i){return o===sel[i];});})[0];
+  }
+  function update(){
+    var sel=selected(),v=match(sel);
+    radios.forEach(function(r){
+      var i=+r.getAttribute('data-pdp-option'),test=sel.slice();test[i]=r.value;
+      var tv=match(test);
+      r.parentNode.classList.toggle('active',r.checked);
+      r.parentNode.classList.toggle('sold-out',!tv||!tv.available);
+    });
+    if(!v){
+      addBtn.disabled=true;addBtn.textContent=T.na;return;
+    }
+    idInput.value=v.id;
+    priceEl.textContent=v.price;
+    if(v.compare){compareEl.textContent=v.compare;compareEl.hidden=false;}else compareEl.hidden=true;
+    addBtn.disabled=!v.available;
+    addBtn.textContent=v.available?T.add:T.sold;
+    if(v.image)showImage(root.querySelector('.pdp-thumb[data-image-id="'+v.image+'"]'));
+    if(window.history.replaceState){
+      var u=new URL(window.location.href);u.searchParams.set('variant',v.id);
+      window.history.replaceState({},'',u.toString());
+    }
+  }
+  root.addEventListener('change',function(e){if(e.target.hasAttribute('data-pdp-option'))update();});
+  update();
+})();
+</script>
 
 {% schema %}
 {"name": "Product"}
