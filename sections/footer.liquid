@@ -1,34 +1,71 @@
 <footer class="site-footer">
-  <a href="{{ routes.root_url }}" style="text-decoration:none;">
-    {% if settings.logo_light != blank %}
-      <img src="{{ settings.logo_light | img_url: '160x' }}" alt="{{ shop.name }}" class="footer-logo">
-    {% else %}
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;color:rgba(255,255,255,.35);">{{ shop.name }}</span>
-    {% endif %}
-  </a>
-  <div class="footer-links">
-    {% for block in section.blocks %}
-      <a href="{{ block.settings.url }}" class="footer-link" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
-    {% endfor %}
+  <div class="ft-top">
+    <div class="ft-brand">
+      <a href="{{ routes.root_url }}" class="ft-logo-link">
+        {%- if settings.logo_light != blank -%}
+          {{ settings.logo_light | image_url: width: 320 | image_tag: class: 'footer-logo', widths: '160, 320', sizes: '160px', alt: shop.name }}
+        {%- else -%}
+          <span class="ft-wordmark">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+      {%- if section.settings.tagline != blank -%}<p class="ft-tagline">{{ section.settings.tagline }}</p>{%- endif -%}
+      <p class="ft-offer">{% render 'offer-line' %}</p>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <nav class="ft-col" aria-label="{{ 'footer.explore' | t }}">
+        <h2 class="ft-h">{{ 'footer.explore' | t }}</h2>
+        {%- for block in section.blocks -%}
+          <a href="{{ block.settings.url }}" class="footer-link" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    {%- if shop.policies.size > 0 -%}
+      <nav class="ft-col" aria-label="{{ 'footer.policies' | t }}">
+        <h2 class="ft-h">{{ 'footer.policies' | t }}</h2>
+        {%- for policy in shop.policies -%}
+          <a href="{{ policy.url }}" class="footer-link">{{ policy.title }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    <div class="ft-col">
+      <h2 class="ft-h">{{ 'footer.contact' | t }}</h2>
+      {%- assign contact_email = settings.email | default: shop.email -%}
+      {%- if contact_email != blank -%}<a href="mailto:{{ contact_email }}" class="footer-link ft-plain">{{ contact_email }}</a>{%- endif -%}
+      {%- if settings.whatsapp != blank -%}<a href="https://wa.me/{{ settings.whatsapp }}" class="footer-link" target="_blank" rel="noopener">WhatsApp</a>{%- endif -%}
+      {%- if settings.instagram != blank -%}<a href="{{ settings.instagram }}" class="footer-link" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+      <span class="ft-loc">{{ section.settings.location }}</span>
+    </div>
   </div>
-  <div class="footer-copy">&copy; {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | default: 'AERON Sportswear' }} &mdash; {{ section.settings.location | default: 'Montréal' }}</div>
+
+  <div class="ft-bottom">
+    <div class="footer-copy">&copy; {{ 'now' | date: '%Y' }} {{ section.settings.brand_name }}</div>
+    {%- if shop.enabled_payment_types.size > 0 -%}
+      <ul class="ft-pay" aria-label="{{ 'footer.payment_methods' | t }}">
+        {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag }}</li>{%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
 </footer>
 {% schema %}
 {
   "name": "Footer",
   "settings": [
     { "type": "text", "id": "brand_name", "label": "Brand name", "default": "AERON Sportswear" },
-    { "type": "text", "id": "location",   "label": "City",        "default": "Montréal" }
+    { "type": "text", "id": "tagline",    "label": "Tagline",    "default": "Premium custom football kits, designed and delivered from Montréal." },
+    { "type": "text", "id": "location",   "label": "City",       "default": "Montréal, QC" }
   ],
   "blocks": [{ "type": "link", "name": "Footer Link", "settings": [
     { "type": "text", "id": "label", "label": "Label" },
     { "type": "url",  "id": "url",   "label": "URL" }
   ]}],
-  "presets": [{"name": "Footer", "blocks": [
+  "default": {"blocks": [
     { "type": "link", "settings": { "label": "Kits",            "url": "/pages/kits" } },
     { "type": "link", "settings": { "label": "Grip Socks",      "url": "/collections/grip-socks" } },
     { "type": "link", "settings": { "label": "Teams",           "url": "/pages/gallery" } },
     { "type": "link", "settings": { "label": "Start a Project", "url": "/pages/kits#project" } }
-  ]}]
+  ]}
 }
 {% endschema %}

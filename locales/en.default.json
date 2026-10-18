@@ -84,5 +84,11 @@
     "deposit_to_start": "{{ deposit }} deposit to start",
     "deposit_word": "deposit",
     "cta_line": "Custom APEX kits. {{ deposit }} deposit to start. Ready in {{ timeline }}."
+  },
+  "footer": {
+    "explore": "Explore",
+    "policies": "Policies",
+    "contact": "Contact",
+    "payment_methods": "Payment methods"
   }
 }
