@@ -109,5 +109,166 @@
         "default": 8
       }
     ]
+  },
+  {
+    "name": "Kit pricing (CAD)",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Used by the kit configurator, the kits page price labels and the homepage kit feature. Prices are per jersey (or per set) in dollars."
+      },
+      {
+        "type": "header",
+        "content": "Jersey only, per jersey"
+      },
+      {
+        "type": "number",
+        "id": "kit_jersey_10",
+        "label": "10–49 jerseys",
+        "default": 45
+      },
+      {
+        "type": "number",
+        "id": "kit_jersey_50",
+        "label": "50–99",
+        "default": 40
+      },
+      {
+        "type": "number",
+        "id": "kit_jersey_100",
+        "label": "100–199",
+        "default": 37
+      },
+      {
+        "type": "number",
+        "id": "kit_jersey_200",
+        "label": "200–499",
+        "default": 34
+      },
+      {
+        "type": "number",
+        "id": "kit_jersey_500",
+        "label": "500+",
+        "default": 31
+      },
+      {
+        "type": "header",
+        "content": "Jersey + shorts, per set"
+      },
+      {
+        "type": "number",
+        "id": "kit_set_10",
+        "label": "10–49 sets",
+        "default": 55
+      },
+      {
+        "type": "number",
+        "id": "kit_set_50",
+        "label": "50–99",
+        "default": 50
+      },
+      {
+        "type": "number",
+        "id": "kit_set_100",
+        "label": "100–199",
+        "default": 46
+      },
+      {
+        "type": "number",
+        "id": "kit_set_200",
+        "label": "200–499",
+        "default": 42
+      },
+      {
+        "type": "number",
+        "id": "kit_set_500",
+        "label": "500+",
+        "default": 38
+      },
+      {
+        "type": "header",
+        "content": "Add-ons"
+      },
+      {
+        "type": "number",
+        "id": "kit_names",
+        "label": "Player names & numbers, per jersey",
+        "default": 5
+      },
+      {
+        "type": "number",
+        "id": "kit_sponsor",
+        "label": "Sponsor logo premium print, per logo per jersey",
+        "default": 3
+      },
+      {
+        "type": "number",
+        "id": "kit_emb",
+        "label": "Embroidered crest, per jersey",
+        "default": 4
+      },
+      {
+        "type": "number",
+        "id": "kit_socks",
+        "label": "Grip socks, per pair",
+        "default": 18
+      },
+      {
+        "type": "header",
+        "content": "Collar upgrades, per jersey"
+      },
+      {
+        "type": "number",
+        "id": "kit_collar_vneck",
+        "label": "V-Neck",
+        "default": 2
+      },
+      {
+        "type": "number",
+        "id": "kit_collar_polo",
+        "label": "Polo",
+        "default": 4
+      },
+      {
+        "type": "number",
+        "id": "kit_collar_mandarin",
+        "label": "Mandarin",
+        "default": 4
+      },
+      {
+        "type": "number",
+        "id": "kit_collar_kiwi",
+        "label": "Kiwi",
+        "default": 4
+      },
+      {
+        "type": "header",
+        "content": "Shipping"
+      },
+      {
+        "type": "number",
+        "id": "kit_ship_small",
+        "label": "Under 30 jerseys",
+        "default": 75
+      },
+      {
+        "type": "number",
+        "id": "kit_ship_30",
+        "label": "30–49 jerseys",
+        "default": 100
+      },
+      {
+        "type": "number",
+        "id": "kit_ship_50",
+        "label": "50+ jerseys",
+        "default": 150
+      },
+      {
+        "type": "number",
+        "id": "kit_free_ship_qty",
+        "label": "Free shipping from (jerseys)",
+        "default": 100
+      }
+    ]
   }
 ]

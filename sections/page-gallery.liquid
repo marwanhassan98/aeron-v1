@@ -1,10 +1,10 @@
 <section style="padding:100px 60px 60px;background:#0F1A2B;position:relative;overflow:hidden;">
-  <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:260px;color:rgba(255,255,255,.018);right:-20px;top:50%;transform:translateY(-50%);pointer-events:none;letter-spacing:-8px;line-height:1;">SQUADS</div>
+  <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:260px;color:rgba(255,255,255,.018);right:-20px;top:50%;transform:translateY(-50%);pointer-events:none;letter-spacing:-8px;line-height:1;" aria-hidden="true">{{ section.settings.watermark }}</div>
   <div style="position:relative;z-index:2;max-width:900px;">
-    <div class="kicker-w">Our Teams</div>
-    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,9vw,110px);letter-spacing:4px;color:#fff;line-height:.86;margin-bottom:18px;">The<br>Squads.</h1>
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);line-height:1.65;max-width:520px;margin-bottom:30px;">Four Montr&eacute;al clubs. One kit studio. Every team that wears AERON is part of the story.</div>
-    <a href="/pages/kits#project" class="aeron-btn" style="padding:14px 40px;font-size:11px;">Join Them &rarr;</a>
+    <div class="kicker-w">{{ section.settings.kicker }}</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,9vw,110px);letter-spacing:4px;color:#fff;line-height:.86;margin-bottom:18px;">{{ section.settings.heading | newline_to_br }}</h1>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);line-height:1.65;max-width:520px;margin-bottom:30px;">{{ section.settings.text }}</div>
+    {%- if section.settings.btn_label != blank -%}<a href="{{ section.settings.btn_url | default: '/pages/kits#project' }}" class="aeron-btn" style="padding:14px 40px;font-size:11px;">{{ section.settings.btn_label }}</a>{%- endif -%}
   </div>
 </section>
 
@@ -42,10 +42,10 @@
 
 <section class="section section-mid" style="text-align:center;">
   <div class="reveal">
-    <div class="kicker-w">Your Team</div>
-    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,80px);letter-spacing:4px;color:#fff;line-height:.9;margin-bottom:20px;">Your Squad<br>is Next.</h2>
+    <div class="kicker-w">{{ section.settings.cta_kicker }}</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,80px);letter-spacing:4px;color:#fff;line-height:.9;margin-bottom:20px;">{{ section.settings.cta_heading | newline_to_br }}</h2>
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);margin-bottom:36px;">{% render 'offer-line', key: 'offer.cta_line' %}</div>
-    <a href="/pages/kits#project" class="aeron-btn" style="padding:17px 56px;font-size:12px;">Start a Project &rarr;</a>
+    <a href="{{ section.settings.cta_url | default: '/pages/kits#project' }}" class="aeron-btn" style="padding:17px 56px;font-size:12px;">{{ section.settings.cta_label }}</a>
   </div>
 </section>
 
@@ -54,6 +54,20 @@
 {% schema %}
 {
   "name": "Gallery Page",
+  "settings": [
+    { "type": "header",   "content": "Hero" },
+    { "type": "text",     "id": "kicker",     "label": "Kicker",  "default": "Our Teams" },
+    { "type": "textarea", "id": "heading",    "label": "Heading", "default": "The\nSquads." },
+    { "type": "textarea", "id": "text",       "label": "Text",    "default": "Montréal clubs, one kit studio. Every team that wears AERON is part of the story." },
+    { "type": "text",     "id": "watermark",  "label": "Background word", "default": "SQUADS" },
+    { "type": "text",     "id": "btn_label",  "label": "Button text", "default": "Join Them →" },
+    { "type": "url",      "id": "btn_url",    "label": "Button link" },
+    { "type": "header",   "content": "Bottom call to action" },
+    { "type": "text",     "id": "cta_kicker", "label": "Kicker",  "default": "Your Team" },
+    { "type": "textarea", "id": "cta_heading","label": "Heading", "default": "Your Squad\nis Next." },
+    { "type": "text",     "id": "cta_label",  "label": "Button text", "default": "Start a Project →" },
+    { "type": "url",      "id": "cta_url",    "label": "Button link" }
+  ],
   "blocks": [
     {
       "type": "team",

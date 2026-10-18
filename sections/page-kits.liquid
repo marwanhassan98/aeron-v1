@@ -1,3 +1,21 @@
+{%- liquid
+  assign base_total = settings.kit_jersey_10 | times: 20
+  if settings.kit_free_ship_qty <= 20
+    assign start_ship = 0
+  else
+    assign start_ship = settings.kit_ship_small
+  endif
+  assign start_total = base_total | plus: start_ship
+  assign start_unit = start_total | times: 100 | divided_by: 20
+-%}
+<script type="application/json" id="kitPricing">
+  {
+    "jersey": { "10": {{ settings.kit_jersey_10 | json }}, "50": {{ settings.kit_jersey_50 | json }}, "100": {{ settings.kit_jersey_100 | json }}, "200": {{ settings.kit_jersey_200 | json }}, "500": {{ settings.kit_jersey_500 | json }} },
+    "set": { "10": {{ settings.kit_set_10 | json }}, "50": {{ settings.kit_set_50 | json }}, "100": {{ settings.kit_set_100 | json }}, "200": {{ settings.kit_set_200 | json }}, "500": {{ settings.kit_set_500 | json }} },
+    "names": {{ settings.kit_names | json }}, "sponsor": {{ settings.kit_sponsor | json }}, "emb": {{ settings.kit_emb | json }}, "socks": {{ settings.kit_socks | json }},
+    "ship": { "small": {{ settings.kit_ship_small | json }}, "30": {{ settings.kit_ship_30 | json }}, "50": {{ settings.kit_ship_50 | json }}, "free": {{ settings.kit_free_ship_qty | json }} }
+  }
+</script>
 <style>
 .kh-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
 .build-layout{display:grid;grid-template-columns:1fr 1fr;gap:76px;align-items:start;max-width:1100px;margin:56px auto 0;}
@@ -19,12 +37,12 @@
         <div style="display:flex;align-items:center;gap:11px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.66);"><span style="color:#C6A962;font-size:8px;flex-shrink:0;">&#10022;</span>TPU raised club crest &mdash; included</div>
         <div style="display:flex;align-items:center;gap:11px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.66);"><span style="color:#C6A962;font-size:8px;flex-shrink:0;">&#10022;</span>Sublimated sponsor logos &mdash; unlimited, free</div>
         <div style="display:flex;align-items:center;gap:11px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.66);"><span style="color:#C6A962;font-size:8px;flex-shrink:0;">&#10022;</span>Round collar default &mdash; 5 upgrade styles</div>
-        <div style="display:flex;align-items:center;gap:11px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.66);"><span style="color:#C6A962;font-size:8px;flex-shrink:0;">&#10022;</span>Free shipping on 100+ units</div>
+        <div style="display:flex;align-items:center;gap:11px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.66);"><span style="color:#C6A962;font-size:8px;flex-shrink:0;">&#10022;</span>Free shipping on {{ settings.kit_free_ship_qty }}+ units</div>
       </div>
       <div style="display:flex;align-items:baseline;gap:10px;padding-top:22px;border-top:1px solid rgba(198,169,98,.12);margin-bottom:26px;">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.66);">from</span>
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:1;" class="gold-text">$45</span>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.66);letter-spacing:2px;">CAD / jersey</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.66);">{{ section.settings.price_from }}</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:1;" class="gold-text">${{ settings.kit_jersey_10 }}</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.66);letter-spacing:2px;">{{ section.settings.price_unit }}</span>
       </div>
       <a href="#build" class="aeron-btn" style="padding:14px 38px;font-size:11px;">Build Your Kit &darr;</a>
     </div>
@@ -64,13 +82,13 @@
             <div class="opt-img">
               {% if section.settings.img_jersey != blank %}{{ section.settings.img_jersey | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(max-width: 600px) 50vw, 260px', loading: 'lazy', alt: 'Jersey Only' }}{% else %}<svg width="80" height="100" viewBox="0 0 200 240" fill="none"><defs><linearGradient id="jg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1C2F4A"/><stop offset="100%" stop-color="#0F1A2B"/></linearGradient></defs><path d="M50,40 L20,70 L10,130 L35,135 L35,230 L165,230 L165,135 L190,130 L180,70 L150,40 L130,55 C120,60 80,60 70,55 Z" fill="url(#jg1)"/><path d="M70,55 Q100,70 130,55" fill="rgba(15,26,43,.8)" stroke="rgba(198,169,98,.4)" stroke-width="2"/></svg>{% endif %}
             </div>
-            <div class="opt-body"><div class="opt-name">Jersey Only</div><div class="opt-price" id="priceJerseyCard">$45 / jersey</div></div>
+            <div class="opt-body"><div class="opt-name">Jersey Only</div><div class="opt-price" id="priceJerseyCard">${{ settings.kit_jersey_10 }} / jersey</div></div>
           </div>
           <div class="opt-card" onclick="setKit(this,'shorts')" data-kit="shorts">
             <div class="opt-img">
               {% if section.settings.img_shorts != blank %}{{ section.settings.img_shorts | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(max-width: 600px) 50vw, 260px', loading: 'lazy', alt: 'Jersey + Shorts' }}{% else %}<svg width="80" height="100" viewBox="0 0 200 280" fill="none"><defs><linearGradient id="jg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1C2F4A"/><stop offset="100%" stop-color="#0F1A2B"/></linearGradient></defs><path d="M50,40 L20,70 L10,130 L35,135 L35,200 L165,200 L165,135 L190,130 L180,70 L150,40 L130,55 C120,60 80,60 70,55 Z" fill="url(#jg2)"/><path d="M70,55 Q100,70 130,55" fill="rgba(15,26,43,.8)" stroke="rgba(198,169,98,.4)" stroke-width="2"/><rect x="55" y="205" width="90" height="60" rx="4" fill="url(#jg2)" opacity=".7"/></svg>{% endif %}
             </div>
-            <div class="opt-body"><div class="opt-name">Jersey + Shorts</div><div class="opt-price" id="priceShortsCard">$55 / set</div></div>
+            <div class="opt-body"><div class="opt-name">Jersey + Shorts</div><div class="opt-price" id="priceShortsCard">${{ settings.kit_set_10 }} / set</div></div>
           </div>
         </div>
       </div>
@@ -81,19 +99,19 @@
         <div class="opt-grid-4">
           <div class="opt-card" onclick="toggleAddon(this,'names')" data-addon="names">
             <div class="opt-img">{% if section.settings.img_names != blank %}{{ section.settings.img_names | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(max-width: 600px) 50vw, 260px', loading: 'lazy', alt: 'Player Names' }}{% else %}<svg width="80" height="80" viewBox="0 0 120 120" fill="none"><rect x="10" y="10" width="100" height="100" fill="#F2F2F2"/><text x="60" y="56" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="28" font-weight="900" fill="#0F1A2B">10</text><text x="60" y="78" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="12" font-weight="700" fill="#0F1A2B" letter-spacing="2">PLAYER</text><rect x="20" y="88" width="80" height="2" fill="rgba(198,169,98,.5)" rx="1"/></svg>{% endif %}</div>
-            <div class="opt-body"><div class="opt-name">Player Names &amp; Numbers</div><div class="opt-price">+$5 / jersey</div></div>
+            <div class="opt-body"><div class="opt-name">Player Names &amp; Numbers</div><div class="opt-price">+${{ settings.kit_names }} / jersey</div></div>
           </div>
           <div class="opt-card" onclick="toggleAddon(this,'spon')" data-addon="spon">
             <div class="opt-img">{% if section.settings.img_sponsor != blank %}{{ section.settings.img_sponsor | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(max-width: 600px) 50vw, 260px', loading: 'lazy', alt: 'Sponsor Logo' }}{% else %}<svg width="80" height="80" viewBox="0 0 120 120" fill="none"><rect x="10" y="10" width="100" height="100" fill="#F2F2F2"/><rect x="25" y="38" width="70" height="44" rx="3" fill="#0F1A2B" opacity=".9"/><text x="60" y="66" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="10" font-weight="700" fill="rgba(198,169,98,.9)" letter-spacing="2">SPONSOR</text></svg>{% endif %}</div>
-            <div class="opt-body"><div class="opt-name">Sponsor Logo Upgrade</div><div class="opt-price">+$3 / logo / jersey</div><div class="opt-note">&#10003; Sublimated logos free</div></div>
+            <div class="opt-body"><div class="opt-name">Sponsor Logo Upgrade</div><div class="opt-price">+${{ settings.kit_sponsor }} / logo / jersey</div><div class="opt-note">&#10003; Sublimated logos free</div></div>
           </div>
           <div class="opt-card" onclick="toggleAddon(this,'emb')" data-addon="emb">
             <div class="opt-img">{% if section.settings.img_emb != blank %}{{ section.settings.img_emb | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(max-width: 600px) 50vw, 260px', loading: 'lazy', alt: 'Embroidered Crest' }}{% else %}<svg width="80" height="80" viewBox="0 0 120 120" fill="none"><rect x="10" y="10" width="100" height="100" fill="#F2F2F2"/><ellipse cx="60" cy="58" rx="28" ry="32" fill="#0F1A2B"/><ellipse cx="60" cy="58" rx="21" ry="25" fill="none" stroke="rgba(198,169,98,.7)" stroke-width="1.5" stroke-dasharray="3,2"/><text x="60" y="63" text-anchor="middle" font-family="Orbitron,sans-serif" font-size="11" font-weight="900" fill="rgba(198,169,98,.9)">FC</text></svg>{% endif %}</div>
-            <div class="opt-body"><div class="opt-name">Embroidered Crest</div><div class="opt-price">+$4 / jersey</div></div>
+            <div class="opt-body"><div class="opt-name">Embroidered Crest</div><div class="opt-price">+${{ settings.kit_emb }} / jersey</div></div>
           </div>
           <div class="opt-card" onclick="toggleAddon(this,'socks')" data-addon="socks">
             <div class="opt-img">{% if section.settings.img_socks != blank %}{{ section.settings.img_socks | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(max-width: 600px) 50vw, 260px', loading: 'lazy', alt: 'Grip Socks' }}{% else %}<svg width="80" height="100" viewBox="0 0 100 130" fill="none"><path d="M35,10 L35,85 Q35,110 60,118 L80,124 Q95,128 97,115 Q99,102 88,96 L72,86 L72,10 Z" fill="#1C2F4A" opacity=".85"/><rect x="35" y="10" width="37" height="11" rx="2" fill="#C6A962" opacity=".6"/></svg>{% endif %}</div>
-            <div class="opt-body"><div class="opt-name">Launch Pads&#8482; Socks</div><div class="opt-price">+$18 / pair / player</div></div>
+            <div class="opt-body"><div class="opt-name">Launch Pads&#8482; Socks</div><div class="opt-price">+${{ settings.kit_socks }} / pair / player</div></div>
           </div>
         </div>
         <div id="spon-count-wrap" style="display:none;margin-top:3px;background:#F2F2F2;border:1px solid rgba(15,26,43,.07);padding:16px 20px;flex-direction:row;align-items:center;gap:16px;">
@@ -112,10 +130,10 @@
         <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(15,26,43,.66);margin-bottom:14px;">Round collar included. Other styles are a small add-on per jersey.</p>
         <div class="opt-grid-3">
           <div class="opt-card on" onclick="setCollar(this,'Round',0)" data-collar="Round"><div class="opt-img"><img src="{{ 'collar-round.webp' | asset_url }}" alt="Round collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">Round</div><div class="opt-price">Included</div></div></div>
-          <div class="opt-card" onclick="setCollar(this,'V-Neck',2)" data-collar="V-Neck"><div class="opt-img"><img src="{{ 'collar-vneck.webp' | asset_url }}" alt="V-Neck collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">V-Neck</div><div class="opt-price">+$2 / jersey</div></div></div>
-          <div class="opt-card" onclick="setCollar(this,'Polo',4)" data-collar="Polo"><div class="opt-img"><img src="{{ 'collar-polo.webp' | asset_url }}" alt="Polo collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">Polo</div><div class="opt-price">+$4 / jersey</div></div></div>
-          <div class="opt-card" onclick="setCollar(this,'Mandarin',4)" data-collar="Mandarin"><div class="opt-img"><img src="{{ 'collar-mandarin.webp' | asset_url }}" alt="Mandarin collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">Mandarin</div><div class="opt-price">+$4 / jersey</div></div></div>
-          <div class="opt-card" onclick="setCollar(this,'Kiwi',4)" data-collar="Kiwi"><div class="opt-img"><img src="{{ 'collar-kiwi.webp' | asset_url }}" alt="Kiwi collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">Kiwi</div><div class="opt-price">+$4 / jersey</div></div></div>
+          <div class="opt-card" onclick="setCollar(this,'V-Neck',{{ settings.kit_collar_vneck }})" data-collar="V-Neck"><div class="opt-img"><img src="{{ 'collar-vneck.webp' | asset_url }}" alt="V-Neck collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">V-Neck</div><div class="opt-price">+${{ settings.kit_collar_vneck }} / jersey</div></div></div>
+          <div class="opt-card" onclick="setCollar(this,'Polo',{{ settings.kit_collar_polo }})" data-collar="Polo"><div class="opt-img"><img src="{{ 'collar-polo.webp' | asset_url }}" alt="Polo collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">Polo</div><div class="opt-price">+${{ settings.kit_collar_polo }} / jersey</div></div></div>
+          <div class="opt-card" onclick="setCollar(this,'Mandarin',{{ settings.kit_collar_mandarin }})" data-collar="Mandarin"><div class="opt-img"><img src="{{ 'collar-mandarin.webp' | asset_url }}" alt="Mandarin collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">Mandarin</div><div class="opt-price">+${{ settings.kit_collar_mandarin }} / jersey</div></div></div>
+          <div class="opt-card" onclick="setCollar(this,'Kiwi',{{ settings.kit_collar_kiwi }})" data-collar="Kiwi"><div class="opt-img"><img src="{{ 'collar-kiwi.webp' | asset_url }}" alt="Kiwi collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">Kiwi</div><div class="opt-price">+${{ settings.kit_collar_kiwi }} / jersey</div></div></div>
           <div class="opt-card" onclick="setCollar(this,'Insert',0)" data-collar="Insert"><div class="opt-img"><img src="{{ 'collar-insert.webp' | asset_url }}" alt="Insert collar" width="600" height="600" loading="lazy"></div><div class="opt-body"><div class="opt-name">Insert</div><div class="opt-price">Included</div></div></div>
         </div>
       </div>
@@ -132,16 +150,16 @@
       <!-- PRICE BOX -->
       <div class="price-box reveal">
         <div class="price-lines">
-          <div class="price-line"><span id="lBase">APEX Jersey x20</span><span class="pv" id="pBase">$900.00</span></div>
+          <div class="price-line"><span id="lBase">APEX Jersey x20</span><span class="pv" id="pBase">{{ base_total | times: 100 | money }}</span></div>
           <div class="price-line" id="lCollar" style="display:none"><span>Collar Upgrade</span><span class="pv" id="pCollar"></span></div>
           <div class="price-line" id="lNames" style="display:none"><span>Player Names &amp; Numbers</span><span class="pv" id="pNames"></span></div>
           <div class="price-line" id="lSpon" style="display:none"><span>Sponsor Logo Premium Print</span><span class="pv" id="pSpon"></span></div>
           <div class="price-line" id="lEmb" style="display:none"><span>Embroidered Crest</span><span class="pv" id="pEmb"></span></div>
           <div class="price-line" id="lSocks" style="display:none"><span>Launch Pads&#8482; Grip Socks</span><span class="pv" id="pSocks"></span></div>
-          <div class="price-line"><span>Shipping</span><span class="pv" id="pShip">$75.00</span></div>
-          <div class="price-line total"><span>Estimated Total</span><span class="pv" id="pTotal" aria-live="polite">$975.00</span></div>
+          <div class="price-line"><span>Shipping</span><span class="pv" id="pShip">{{ start_ship | times: 100 | money }}</span></div>
+          <div class="price-line total"><span>Estimated Total</span><span class="pv" id="pTotal" aria-live="polite">{{ start_total | times: 100 | money }}</span></div>
         </div>
-        <div class="price-unit" id="unitNote">approx. $48.75 per jersey</div>
+        <div class="price-unit" id="unitNote">approx. {{ start_unit | money }} per jersey</div>
         <a href="#project" class="aeron-btn aeron-btn-full" style="padding:15px;font-size:11px;display:block;">Start a Project &rarr;</a>
         <div class="ship-msg ship-free" id="shipFree">&#10003; Free Shipping on This Order</div>
         <div class="ship-msg ship-paid" id="shipPaid"><span id="shipMsg"></span></div>
@@ -265,8 +283,7 @@
     { "type": "text",         "id": "tier_label",   "label": "Tier label",        "default": "Tier 01 — Airborne Series" },
     { "type": "text",         "id": "kit_tagline",  "label": "Kit tagline",        "default": "One kit. Everything premium." },
     { "type": "text",         "id": "price_from",   "label": "Price from text",    "default": "from" },
-    { "type": "text",         "id": "price",        "label": "Price",              "default": "$45" },
-    { "type": "text",         "id": "price_unit",   "label": "Price unit",         "default": "CAD / jersey" },
+    { "type": "text",         "id": "price_unit",   "label": "Price unit", "info": "The price itself comes from Theme settings → Kit pricing.",         "default": "CAD / jersey" },
     { "type": "image_picker", "id": "kit_image",    "label": "APEX kit photo" },
     { "type": "header",       "content": "Add-On Photos" },
     { "type": "image_picker", "id": "img_jersey",   "label": "Jersey Only photo" },

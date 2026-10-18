@@ -25,7 +25,7 @@
   <div class="kit-feat-body">
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#C6A962;margin-bottom:12px;">{{ section.settings.kicker | default: 'The APEX Kit' }}</div>
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,90px);letter-spacing:4px;color:#fff;line-height:.88;margin-bottom:20px;">{{ section.settings.heading | default: 'One Kit.<br>Everything.' }}</h2>
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);line-height:1.7;margin-bottom:32px;max-width:420px;">{{ section.settings.body | default: 'Starting from $45 CAD. Every kit includes full sublimation, AERON embroidered logo, and TPU raised crest.' }}</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);line-height:1.7;margin-bottom:32px;max-width:420px;">{{ section.settings.body }}</div>
     <div style="margin-bottom:36px;">
       {% for block in section.blocks %}
         <div class="kit-feat-bullet" {{ block.shopify_attributes }}>
@@ -36,7 +36,7 @@
     </div>
     <div style="display:flex;align-items:baseline;gap:10px;padding-top:22px;border-top:1px solid rgba(198,169,98,.12);margin-bottom:26px;">
       <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.66);">{{ section.settings.price_from | default: 'from' }}</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:1;" class="gold-text">{{ section.settings.price | default: '$45' }}</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:58px;line-height:1;" class="gold-text">{% if section.settings.price != blank %}{{ section.settings.price }}{% else %}${{ settings.kit_jersey_10 }}{% endif %}</span>
       <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.66);letter-spacing:2px;">{{ section.settings.price_unit | default: 'CAD / jersey' }}</span>
     </div>
     <a href="{{ section.settings.btn_url | default: '/pages/kits' }}" class="aeron-btn" style="padding:15px 44px;font-size:11px;align-self:flex-start;">{{ section.settings.btn_label | default: 'Build Your Kit →' }}</a>
@@ -50,9 +50,9 @@
     { "type": "image_picker", "id": "image",      "label": "Kit photo" },
     { "type": "text",         "id": "kicker",     "label": "Kicker text",    "default": "The APEX Kit" },
     { "type": "textarea",     "id": "heading",    "label": "Heading",         "default": "One Kit. Everything." },
-    { "type": "textarea",     "id": "body",       "label": "Body text",       "default": "Starting from $45 CAD. Every kit includes full sublimation, AERON embroidered logo, and TPU raised crest." },
+    { "type": "textarea",     "id": "body",       "label": "Body text",       "default": "Every kit includes full sublimation, the AERON embroidered logo and a TPU raised club crest." },
     { "type": "text",         "id": "price_from", "label": "Price prefix",    "default": "from" },
-    { "type": "text",         "id": "price",      "label": "Price",           "default": "$45" },
+    { "type": "text",         "id": "price",      "label": "Price", "info": "Leave blank to use Theme settings → Kit pricing." },
     { "type": "text",         "id": "price_unit", "label": "Price suffix",    "default": "CAD / jersey" },
     { "type": "text",         "id": "btn_label",  "label": "Button text",     "default": "Build Your Kit →" },
     { "type": "url",          "id": "btn_url",    "label": "Button URL" }

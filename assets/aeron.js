@@ -132,8 +132,11 @@ document.addEventListener('keydown',function(e){
 document.addEventListener('click',function(e){if(e.target.closest('.opt-card'))syncPressed();});
 syncPressed();
 
-var jMOQ={10:45,50:40,100:37,200:34,500:31};
-var sMOQ={10:55,50:50,100:46,200:42,500:38};
+/* Prices come from Theme settings → Kit pricing, rendered as JSON by page-kits */
+var P=JSON.parse(document.getElementById('kitPricing').textContent);
+var jMOQ=P.jersey,sMOQ=P.set;
+var PR={names:P.names,spon:P.sponsor,emb:P.emb,socks:P.socks};
+var SH=P.ship;
 
 function apexBase(q,kit){
   var t=kit==='shorts'?sMOQ:jMOQ;
@@ -141,7 +144,7 @@ function apexBase(q,kit){
   if(q>=100)return t[100];if(q>=50)return t[50];return t[10];
 }
 function fmt(n){return'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
-function getShip(q){return q>=100?0:q>=50?150:q>=30?100:75;}
+function getShip(q){return q>=SH.free?0:q>=50?SH['50']:q>=30?SH['30']:SH.small;}
 
 var selKit='jersey',addons={names:false,spon:false,emb:false,socks:false};
 var sponCount=1,collarUp=0,collarName='Round',qty=20;
@@ -186,10 +189,10 @@ function updatePrice(){
   if(lb)lb.textContent=(selKit==='shorts'?'APEX + Shorts':'APEX Jersey')+' x'+qty;
   if(pb)pb.textContent=fmt(base*qty);
   total+=toggleLine('lCollar','pCollar',collarUp>0,collarUp*qty);
-  total+=toggleLine('lNames','pNames',addons.names,5*qty);
-  total+=toggleLine('lSpon','pSpon',addons.spon,3*sponCount*qty);
-  total+=toggleLine('lEmb','pEmb',addons.emb,4*qty);
-  total+=toggleLine('lSocks','pSocks',addons.socks,18*qty);
+  total+=toggleLine('lNames','pNames',addons.names,PR.names*qty);
+  total+=toggleLine('lSpon','pSpon',addons.spon,PR.spon*sponCount*qty);
+  total+=toggleLine('lEmb','pEmb',addons.emb,PR.emb*qty);
+  total+=toggleLine('lSocks','pSocks',addons.socks,PR.socks*qty);
   var ship=getShip(qty),ps=document.getElementById('pShip');
   if(ps){if(ship===0){ps.textContent='Free';ps.style.color='#28C76F';}else{ps.textContent=fmt(ship);ps.style.color='';}}
   total+=ship;
@@ -199,7 +202,7 @@ function updatePrice(){
   var sf=document.getElementById('shipFree'),sp=document.getElementById('shipPaid'),sm=document.getElementById('shipMsg');
   if(sf)sf.classList.toggle('show',ship===0);
   if(sp)sp.classList.toggle('show',ship>0);
-  if(sm&&ship>0)sm.textContent=fmt(ship)+' shipping — free on 100+';
+  if(sm&&ship>0)sm.textContent=fmt(ship)+' shipping — free on '+SH.free+'+';
 }
 updatePrice();
 
@@ -207,10 +210,10 @@ updatePrice();
 window.submitProject=function(){
   var kitType=selKit==='shorts'?'APEX Jersey + Shorts':'APEX Jersey Only';
   var lines=['Kit: '+kitType,'Quantity: '+qty,'Collar: '+collarName+(collarUp>0?' (+$'+collarUp+'/jersey)':''),'Add-Ons:'];
-  if(addons.names)lines.push('  - Player Names & Numbers (+$5/jersey)');
-  if(addons.spon)lines.push('  - Sponsor Logo: '+sponCount+' logo(s) (+$'+(3*sponCount)+'/jersey)');
-  if(addons.emb)lines.push('  - Embroidered Crest (+$4/jersey)');
-  if(addons.socks)lines.push('  - Launch Pads Socks (+$18/pair)');
+  if(addons.names)lines.push('  - Player Names & Numbers (+$'+PR.names+'/jersey)');
+  if(addons.spon)lines.push('  - Sponsor Logo: '+sponCount+' logo(s) (+$'+(PR.spon*sponCount)+'/jersey)');
+  if(addons.emb)lines.push('  - Embroidered Crest (+$'+PR.emb+'/jersey)');
+  if(addons.socks)lines.push('  - Launch Pads Socks (+$'+PR.socks+'/pair)');
   if(!addons.names&&!addons.spon&&!addons.emb&&!addons.socks)lines.push('  - None');
   var pt=document.getElementById('pTotal');
   lines.push('Estimated Total: '+(pt?pt.textContent:'N/A'));
