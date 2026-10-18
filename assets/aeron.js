@@ -59,29 +59,49 @@ var sro=new IntersectionObserver(function(entries){
 },{threshold:.5});
 document.querySelectorAll('[data-target]').forEach(function(el){sro.observe(el);});
 
-/* POPUP */
+/* POPUP: dialog with focus trap; opens after a delay plus scroll/exit intent */
+var overlay=document.getElementById('popup-overlay'),lastFocus=null;
+function seen(){try{return sessionStorage.getItem('aeronPopupSeen');}catch(e){return '1';}}
+function markSeen(){try{sessionStorage.setItem('aeronPopupSeen','1');}catch(e){}}
+function focusables(){return [].slice.call(overlay.querySelectorAll('a[href],button,input:not([type=hidden]),select,textarea')).filter(function(el){return !el.disabled&&el.offsetParent!==null;});}
 window.openPopup=function(){
-  var o=document.getElementById('popup-overlay');
-  if(o){o.classList.add('open');document.body.style.overflow='hidden';}
+  if(!overlay||overlay.classList.contains('open'))return;
+  lastFocus=document.activeElement;
+  overlay.hidden=false;
+  setTimeout(function(){overlay.classList.add('open');},20);
+  document.body.style.overflow='hidden';
+  var f=overlay.querySelector('input[type=email]')||focusables()[0];
+  if(f)setTimeout(function(){f.focus();},50);
 };
 window.closePopup=function(){
-  var o=document.getElementById('popup-overlay');
-  if(o){o.classList.remove('open');document.body.style.overflow='';}
-  sessionStorage.setItem('aeronPopupSeen','1');
+  if(!overlay)return;
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+  markSeen();
+  setTimeout(function(){overlay.hidden=true;},400);
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
 };
-window.submitPopup=function(e){
-  e.preventDefault();
-  var em=document.getElementById('popupEmail');
-  if(!em)return;
-  fetch('https://byaeron.us16.list-manage.com/subscribe/post?u=127a1aaaebdf6e84a527057d2&id=c85ecbfeb2&f_id=00ce1ee1f0',{method:'POST',body:new URLSearchParams({EMAIL:em.value}),mode:'no-cors'});
-  var wrap=document.getElementById('pu-form-wrap'),succ=document.getElementById('pu-success');
-  if(wrap)wrap.style.display='none';
-  if(succ)succ.style.display='block';
-};
-var overlay=document.getElementById('popup-overlay');
 if(overlay){
-  overlay.addEventListener('click',function(e){if(e.target===overlay)closePopup();});
-  if(!sessionStorage.getItem('aeronPopupSeen'))setTimeout(openPopup,2200);
+  overlay.addEventListener('click',function(e){if(e.target===overlay||e.target.closest('#popup-close,[data-popup-dismiss]'))closePopup();});
+  overlay.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){closePopup();return;}
+    if(e.key!=='Tab')return;
+    var f=focusables();if(!f.length)return;
+    if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}
+    else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}
+  });
+  if(overlay.querySelector('[data-popup-autoopen]')){
+    if(overlay.querySelector('#pu-success'))markSeen();
+    openPopup();
+  }else if(!seen()){
+    var ready=false,wanted=false;
+    function maybe(){wanted=true;if(ready)openPopup();}
+    setTimeout(function(){ready=true;if(wanted)openPopup();},(parseInt(overlay.getAttribute('data-delay'),10)||8)*1000);
+    window.addEventListener('scroll',function onS(){
+      if(window.scrollY>(document.documentElement.scrollHeight-window.innerHeight)*.5){window.removeEventListener('scroll',onS);maybe();}
+    },{passive:true});
+    document.addEventListener('mouseout',function onM(e){if(!e.relatedTarget&&e.clientY<=0){document.removeEventListener('mouseout',onM);maybe();}});
+  }
 }
 
 /* ── KIT CONFIGURATOR (kits page only) ── */

@@ -90,5 +90,17 @@
     "policies": "Policies",
     "contact": "Contact",
     "payment_methods": "Payment methods"
+  },
+  "popup": {
+    "close": "Close",
+    "kicker": "Welcome to AERON",
+    "email": "Email address",
+    "submit": "Claim Offer",
+    "fine_print": "Unsubscribe anytime. First order only.",
+    "no_thanks": "No thanks, continue",
+    "success_title": "You're in.",
+    "success_code_html": "Use code <strong style=\"color:#0F1A2B;font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;\">{{ code }}</strong> at checkout.",
+    "success_text": "Thanks for joining. Watch your inbox.",
+    "continue": "Continue shopping"
   }
 }

@@ -23,7 +23,7 @@
 <body>
   <div id="aeron-cur"></div>
   <div id="aeron-crng"></div>
-  {% render 'popup' %}
+  {%- if settings.popup_enabled and template.name != 'cart' and template.suffix != 'kits' -%}{% render 'popup' %}{%- endif -%}
   {% render 'mobile-menu' %}
   {% section 'header' %}
   <main id="main-content">{{ content_for_layout }}</main>

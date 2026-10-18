@@ -69,5 +69,45 @@
         "default": "4–5 weeks, design included"
       }
     ]
+  },
+  {
+    "name": "Newsletter popup",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "popup_enabled",
+        "label": "Show popup",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "popup_heading",
+        "label": "Heading",
+        "default": "Get $10 Off Your First Order"
+      },
+      {
+        "type": "textarea",
+        "id": "popup_text",
+        "label": "Text",
+        "default": "Join the list for drops, team stories and $10 CAD off your first grip sock order."
+      },
+      {
+        "type": "text",
+        "id": "popup_code",
+        "label": "Discount code",
+        "info": "Shown only after a successful signup. Leave blank to show a thank-you message instead.",
+        "default": "AERON10"
+      },
+      {
+        "type": "range",
+        "id": "popup_delay",
+        "label": "Minimum delay (seconds)",
+        "info": "The popup also waits for the visitor to scroll halfway down or move to leave the page. It never shows on the kits page, cart or password page.",
+        "min": 3,
+        "max": 60,
+        "step": 1,
+        "default": 8
+      }
+    ]
   }
 ]
