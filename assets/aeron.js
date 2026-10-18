@@ -194,7 +194,7 @@ function animateTotal(el,to){
   if(calm||from===to){el.textContent=fmt(to);return;}
   var t0=null;
   (function step(ts){
-    if(!t0)t0=ts;var p=Math.min((ts-t0)/450,1),e=1-Math.pow(1-p,3);
+    if(t0===null)t0=ts;var p=Math.min((ts-t0)/450,1),e=1-Math.pow(1-p,3);
     el.textContent=fmt(from+(to-from)*e);
     if(p<1)totalRaf=requestAnimationFrame(step);
   })(performance.now());
