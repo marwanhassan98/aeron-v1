@@ -5,9 +5,15 @@
   <script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0F1A2B">
-  <title>{{ page_title }} | {{ shop.name }}</title>
+  <title>
+    {{- page_title -}}
+    {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+    {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} | {{ shop.name }}{% endunless -%}
+  </title>
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
   <link rel="canonical" href="{{ canonical_url }}">
+  {% render 'meta-tags' %}
   {% if settings.favicon != blank %}<link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">{% endif %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

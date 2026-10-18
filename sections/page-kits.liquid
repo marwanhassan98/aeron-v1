@@ -11,7 +11,7 @@
   <div class="kh-grid">
     <div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#C6A962;margin-bottom:12px;">{{ section.settings.tier_label | default: "Tier 01 — Airborne Series" }}</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,11vw,148px);letter-spacing:6px;color:#fff;line-height:.85;margin-bottom:16px;">APEX</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,11vw,148px);letter-spacing:6px;color:#fff;line-height:.85;margin-bottom:16px;">APEX</h1>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);letter-spacing:2px;line-height:1.65;margin-bottom:28px;">{{ section.settings.kit_tagline | default: "One kit. Everything premium." }}</div>
       <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:30px;">
         <div style="display:flex;align-items:center;gap:11px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.66);"><span style="color:#C6A962;font-size:8px;flex-shrink:0;">&#10022;</span>Full sublimation &mdash; unlimited colours &amp; patterns</div>
@@ -46,7 +46,7 @@
   <div style="max-width:1100px;margin:0 auto;">
     <div class="reveal">
       <div class="kicker">{{ section.settings.build_kicker | default: "Configure" }}</div>
-      <div class="heading">{{ section.settings.build_heading | default: "Build Your Kit." }}</div>
+      <h2 class="heading">{{ section.settings.build_heading | default: "Build Your Kit." }}</h2>
       <div class="gold-bar"></div>
     </div>
     <div style="margin-top:40px;">
@@ -164,13 +164,13 @@
 <section class="section section-lt" id="faq" style="padding:90px 60px;">
   <div style="max-width:800px;margin:0 auto;" class="reveal">
     <div class="kicker">Before You Start</div>
-    <div class="heading">Common Questions.</div>
+    <h2 class="heading">Common Questions.</h2>
     <div class="gold-bar"></div>
     <div style="margin-top:42px;">
       {% for block in section.blocks %}
         {% if block.type == 'faq' %}
           <div class="faq-item" {{ block.shopify_attributes }}>
-            <div class="faq-q">{{ block.settings.question }}</div>
+            <h3 class="faq-q">{{ block.settings.question }}</h3>
             <div class="faq-a">{{ block.settings.answer }}</div>
           </div>
         {% endif %}
@@ -186,7 +186,7 @@
   <div style="max-width:1100px;margin:0 auto;position:relative;">
     <div class="reveal">
       <div class="kicker">{{ section.settings.proj_kicker | default: "Start a Project" }}</div>
-      <div class="heading">{{ section.settings.proj_heading | default: "Ready to Take Flight?" }}</div>
+      <h2 class="heading">{{ section.settings.proj_heading | default: "Ready to Take Flight?" }}</h2>
       <div class="gold-bar"></div>
       <p style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(15,26,43,.66);margin-top:18px;max-width:520px;line-height:1.7;">{{ section.settings.proj_body }}</p>
       <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#7A6331;margin-top:10px;">{% render 'offer-line' %}</p>

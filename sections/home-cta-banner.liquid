@@ -5,7 +5,7 @@
   <div class="cta-banner-inner" style="position:relative;z-index:1;">
     <div class="reveal">
       <div class="kicker-w">{{ section.settings.kicker | default: 'Start Today' }}</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,8vw,96px);letter-spacing:4px;color:#fff;line-height:.88;margin-bottom:20px;">{{ section.settings.heading | default: 'Your Squad is Next.' }}</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,8vw,96px);letter-spacing:4px;color:#fff;line-height:.88;margin-bottom:20px;">{{ section.settings.heading | default: 'Your Squad is Next.' }}</h2>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(255,255,255,.66);margin-bottom:40px;letter-spacing:1px;">{% if section.settings.subheading != blank %}{{ section.settings.subheading }}{% else %}{% render 'offer-line', key: 'offer.cta_line' %}{% endif %}</div>
       <a href="{{ section.settings.btn_url | default: '/pages/kits#project' }}" class="aeron-btn" style="padding:18px 60px;font-size:12px;">{{ section.settings.btn_label | default: 'Start a Project →' }}</a>
     </div>

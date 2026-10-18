@@ -1,5 +1,6 @@
 /* AERON Sportswear — Global CSS v2.0 */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+h1,h2,h3,h4{font-size:inherit;font-weight:inherit;}
 html{scroll-behavior:smooth;color-scheme:light;}
 body{font-family:'Barlow',sans-serif;background:#fff;color:#0F1A2B;overflow-x:hidden;}
 img{display:block;max-width:100%;}

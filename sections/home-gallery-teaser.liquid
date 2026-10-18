@@ -17,7 +17,7 @@
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:16px;" class="reveal">
       <div>
         <div class="kicker-w">{{ section.settings.kicker | default: 'Kitted Teams' }}</div>
-        <div class="heading-w">{{ section.settings.heading | default: 'The Squads.' }}</div>
+        <h2 class="heading-w">{{ section.settings.heading | default: 'The Squads.' }}</h2>
       </div>
       <a href="{{ section.settings.link_url | default: '/pages/gallery' }}" class="aeron-btn-outline-w" style="padding:12px 28px;white-space:nowrap;">{{ section.settings.link_label | default: 'See All Teams →' }}</a>
     </div>
