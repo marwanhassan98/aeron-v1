@@ -3,6 +3,15 @@
 .gal-tease-grid .gallery-cell:first-child{grid-row:span 2;}
 @media(max-width:900px){.gal-tease-grid{grid-template-columns:1fr 1fr!important;}.gal-tease-grid .gallery-cell:first-child{grid-row:auto!important;}}
 </style>
+{%- liquid
+  assign shown = 0
+  for block in section.blocks
+    if block.settings.image != blank or request.design_mode
+      assign shown = shown | plus: 1
+    endif
+  endfor
+-%}
+{%- if shown > 0 -%}
 <section class="section section-dk" style="padding:100px 60px;">
   <div style="max-width:1200px;margin:0 auto;">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:16px;" class="reveal">
@@ -14,6 +23,7 @@
     </div>
     <div class="gal-tease-grid">
       {% for block in section.blocks %}
+        {%- if block.settings.image == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}
         <div class="gallery-cell reveal" {{ block.shopify_attributes }}>
           {% if block.settings.image != blank %}
             <img src="{{ block.settings.image | img_url: '800x' }}" class="gallery-img" alt="{{ block.settings.name | escape }}" loading="lazy" style="min-height:250px;">
@@ -32,6 +42,7 @@
     </div>
   </div>
 </section>
+{%- endif -%}
 {% schema %}
 {
   "name": "Gallery Teaser",

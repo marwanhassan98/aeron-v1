@@ -34,7 +34,7 @@
       {% else %}
         <div style="text-align:center;padding:40px;opacity:.3;">
           <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:6px;color:#C6A962;">APEX</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;color:#fff;margin-top:8px;">Upload kit photo in theme editor</div>
+          {% if request.design_mode %}<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;color:#fff;margin-top:8px;">Upload kit photo in theme editor</div>{% endif %}
         </div>
       {% endif %}
     </div>

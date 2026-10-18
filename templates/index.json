@@ -1,1 +1,172 @@
-{"sections":{"hero":{"type":"home-hero","settings":{"eyebrow":"Airborne Series — Custom Football Kits — Montréal","title_line1":"Rise","title_line2":"Above","title_line3":"Everything.","sub_bold":"Premium Custom Kits","sub_text":"built for the pitch","btn1_label":"The APEX Kit","btn2_label":"Our Teams"}},"marquee":{"type":"home-marquee","settings":{}},"photos":{"type":"home-photo-strip","blocks":{"p1":{"type":"photo","settings":{"team_name":"BLVCK-Z","location":"Montréal, QC"}},"p2":{"type":"photo","settings":{"team_name":"All Star Experience","location":"Montréal, QC"}},"p3":{"type":"photo","settings":{"team_name":"Custom Hub","location":"Montréal, QC"}},"p4":{"type":"photo","settings":{"team_name":"Falasteen FC","location":"Montréal, QC"}}},"block_order":["p1","p2","p3","p4"],"settings":{}},"kit":{"type":"home-kit-feature","blocks":{"b1":{"type":"bullet","settings":{"title":"Full Sublimation","description":"Unlimited colours, patterns, and gradients on every kit."}},"b2":{"type":"bullet","settings":{"title":"AERON Embroidered Logo","description":"On every kit. Included at no extra cost."}},"b3":{"type":"bullet","settings":{"title":"TPU Raised Club Crest","description":"Your badge in textured TPU. Included."}},"b4":{"type":"bullet","settings":{"title":"Free Ship on 100+ Units","description":"Anywhere in Canada."}}},"block_order":["b1","b2","b3","b4"],"settings":{}},"gallery":{"type":"home-gallery-teaser","blocks":{"t1":{"type":"team","settings":{"name":"BLVCK-Z","location":"Montréal, QC"}},"t2":{"type":"team","settings":{"name":"All Star Experience","location":"Montréal, QC"}},"t3":{"type":"team","settings":{"name":"Falasteen FC","location":"Montréal, QC"}}},"block_order":["t1","t2","t3"],"settings":{}},"testimonials":{"type":"home-testimonials","blocks":{"q1":{"type":"testimonial","settings":{"quote":"The kits arrived and the whole squad was buzzing. Quality is unreal for the price.","team":"BLVCK-Z","role":"Team Captain — Montréal"}},"q2":{"type":"testimonial","settings":{"quote":"Marwan was easy to work with and the mockup came back faster than expected.","team":"All Star Experience","role":"Team Captain — Montréal"}},"q3":{"type":"testimonial","settings":{"quote":"Replace this with a real quote from your captain.","team":"Falasteen FC","role":"Team Captain — Montréal"}}},"block_order":["q1","q2","q3"],"settings":{}},"cta":{"type":"home-cta-banner","settings":{}}},"order":["hero","marquee","photos","kit","gallery","testimonials","cta"]}
+{
+  "sections": {
+    "hero": {
+      "type": "home-hero",
+      "settings": {
+        "eyebrow": "Airborne Series — Custom Football Kits — Montréal",
+        "title_line1": "Rise",
+        "title_line2": "Above",
+        "title_line3": "Everything.",
+        "sub_bold": "Premium Custom Kits",
+        "sub_text": "built for the pitch",
+        "btn1_label": "The APEX Kit",
+        "btn2_label": "Our Teams"
+      }
+    },
+    "marquee": {
+      "type": "home-marquee",
+      "settings": {}
+    },
+    "photos": {
+      "type": "home-photo-strip",
+      "blocks": {
+        "p1": {
+          "type": "photo",
+          "settings": {
+            "team_name": "BLVCK-Z",
+            "location": "Montréal, QC"
+          }
+        },
+        "p2": {
+          "type": "photo",
+          "settings": {
+            "team_name": "All Star Experience",
+            "location": "Montréal, QC"
+          }
+        },
+        "p3": {
+          "type": "photo",
+          "settings": {
+            "team_name": "Custom Hub",
+            "location": "Montréal, QC"
+          }
+        },
+        "p4": {
+          "type": "photo",
+          "settings": {
+            "team_name": "Falasteen FC",
+            "location": "Montréal, QC"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {}
+    },
+    "kit": {
+      "type": "home-kit-feature",
+      "blocks": {
+        "b1": {
+          "type": "bullet",
+          "settings": {
+            "title": "Full Sublimation",
+            "description": "Unlimited colours, patterns, and gradients on every kit."
+          }
+        },
+        "b2": {
+          "type": "bullet",
+          "settings": {
+            "title": "AERON Embroidered Logo",
+            "description": "On every kit. Included at no extra cost."
+          }
+        },
+        "b3": {
+          "type": "bullet",
+          "settings": {
+            "title": "TPU Raised Club Crest",
+            "description": "Your badge in textured TPU. Included."
+          }
+        },
+        "b4": {
+          "type": "bullet",
+          "settings": {
+            "title": "Free Ship on 100+ Units",
+            "description": "Anywhere in Canada."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {}
+    },
+    "gallery": {
+      "type": "home-gallery-teaser",
+      "blocks": {
+        "t1": {
+          "type": "team",
+          "settings": {
+            "name": "BLVCK-Z",
+            "location": "Montréal, QC"
+          }
+        },
+        "t2": {
+          "type": "team",
+          "settings": {
+            "name": "All Star Experience",
+            "location": "Montréal, QC"
+          }
+        },
+        "t3": {
+          "type": "team",
+          "settings": {
+            "name": "Falasteen FC",
+            "location": "Montréal, QC"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "home-testimonials",
+      "blocks": {
+        "q1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The kits arrived and the whole squad was buzzing. Quality is unreal for the price.",
+            "team": "BLVCK-Z",
+            "role": "Team Captain — Montréal"
+          }
+        },
+        "q2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Marwan was easy to work with and the mockup came back faster than expected.",
+            "team": "All Star Experience",
+            "role": "Team Captain — Montréal"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2"
+      ],
+      "settings": {}
+    },
+    "cta": {
+      "type": "home-cta-banner",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "photos",
+    "kit",
+    "gallery",
+    "testimonials",
+    "cta"
+  ]
+}
