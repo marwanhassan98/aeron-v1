@@ -1,5 +1,31 @@
 {
-  "general": { "meta": { "page": "Page {{ page }}" } },
-  "cart": { "general": { "title": "Cart", "empty": "Your cart is empty" } },
-  "products": { "product": { "add_to_cart": "Add to Cart", "sold_out": "Sold Out" } }
+  "general": {
+    "meta": { "page": "Page {{ page }}" },
+    "start_project": "Start a Project",
+    "skip_to_content": "Skip to content"
+  },
+  "cart": {
+    "kicker": "Your Order",
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "continue": "Continue Shopping",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "remove": "Remove",
+    "summary": "Order summary",
+    "subtotal": "Subtotal",
+    "taxes_note": "Taxes and shipping are calculated at checkout.",
+    "note": "Order note",
+    "update": "Update Cart",
+    "checkout": "Checkout",
+    "link_label": "Cart, {{ count }} items"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable"
+    }
+  }
 }

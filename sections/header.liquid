@@ -16,8 +16,8 @@
     {% endfor %}
   </ul>
   <div class="nav-right">
-    <a href="/cart" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(15,26,43,.55);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;" onmouseover="this.style.color='#C6A962'" onmouseout="this.style.color='rgba(15,26,43,.55)'">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <a href="{{ routes.cart_url }}" aria-label="{{ 'cart.link_label' | t: count: cart.item_count }}" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(15,26,43,.55);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;" onmouseover="this.style.color='#C6A962'" onmouseout="this.style.color='rgba(15,26,43,.55)'">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       {% if cart.item_count > 0 %}<span style="font-family:'Orbitron',sans-serif;font-size:8px;font-weight:700;background:#C6A962;color:#0F1A2B;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;">{{ cart.item_count }}</span>{% endif %}
     </a>
     <a href="{{ section.settings.cta_url | default: '/pages/kits#project' }}" class="aeron-btn">{{ section.settings.cta_label | default: 'Start a Project' }}</a>

@@ -1,0 +1,130 @@
+{% comment %}AERON — Cart page{% endcomment %}
+<style>
+.cart-wrap{max-width:1100px;margin:0 auto;}
+.cart-grid{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;margin-top:40px;}
+.cart-item{display:grid;grid-template-columns:96px 1fr auto;gap:18px;padding:20px 0;border-bottom:1px solid rgba(15,26,43,.07);align-items:start;}
+.cart-item:first-child{border-top:1px solid rgba(15,26,43,.07);}
+.cart-img{display:block;background:#F2F2F2;aspect-ratio:1;overflow:hidden;}
+.cart-img img{width:100%;height:100%;object-fit:cover;}
+.cart-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0F1A2B;}
+.cart-meta{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(15,26,43,.6);margin-top:4px;}
+.cart-price{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:#0F1A2B;margin-top:8px;}
+.cart-price s{color:rgba(15,26,43,.45);font-weight:400;margin-right:6px;}
+.cart-disc{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:#7A6331;margin-top:4px;}
+.cart-actions{display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap;}
+.qty-step{display:inline-flex;border:1px solid rgba(15,26,43,.12);}
+.qty-step button{width:36px;height:40px;background:#fff;border:none;font-size:18px;color:#0F1A2B;}
+.qty-step input{width:48px;height:40px;border:none;border-left:1px solid rgba(15,26,43,.12);border-right:1px solid rgba(15,26,43,.12);text-align:center;font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;color:#0F1A2B;-moz-appearance:textfield;}
+.qty-step input::-webkit-outer-spin-button,.qty-step input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.cart-remove{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(15,26,43,.6);text-decoration:underline;text-underline-offset:3px;}
+.cart-remove:hover{color:#B33A3A;}
+.cart-line{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:900;color:#0F1A2B;text-align:right;white-space:nowrap;}
+.cart-summary{background:#0F1A2B;padding:28px;position:sticky;top:100px;}
+.cart-sum-row{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.7);margin-bottom:8px;}
+.cart-sum-total{display:flex;justify-content:space-between;align-items:baseline;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:#fff;padding-top:14px;margin-top:6px;border-top:1px solid rgba(255,255,255,.1);}
+.cart-sum-total span:last-child{color:#E8C97A;}
+.cart-tax{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,.62);margin:10px 0 18px;}
+.cart-note-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.62);display:block;margin-bottom:6px;}
+.cart-note{width:100%;min-height:70px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:'Barlow',sans-serif;font-size:13px;padding:10px 12px;margin-bottom:16px;resize:vertical;}
+.cart-update{display:block;width:100%;margin-top:10px;background:none;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.7);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:12px;}
+.js .cart-update{display:none;}
+.cart-empty{text-align:center;padding:60px 0 20px;}
+.cart-empty p{font-family:'Barlow Condensed',sans-serif;font-size:16px;color:rgba(15,26,43,.6);margin:16px 0 28px;}
+.cart-empty-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+@media(max-width:900px){
+  .cart-grid{grid-template-columns:1fr;gap:28px;}
+  .cart-item{grid-template-columns:80px 1fr;}
+  .cart-line{grid-column:2;text-align:left;}
+  .cart-summary{position:static;}
+}
+</style>
+
+<section class="section">
+  <div class="cart-wrap">
+    <div class="kicker">{{ 'cart.kicker' | t }}</div>
+    <h1 class="heading">{{ 'cart.title' | t }}</h1>
+    <div class="gold-bar"></div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" id="cart-form" class="cart-grid" novalidate>
+        <div>
+          {%- for item in cart.items -%}
+            <div class="cart-item">
+              <a href="{{ item.url }}" class="cart-img" tabindex="-1" aria-hidden="true">
+                {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '96px', alt: '' }}{%- endif -%}
+              </a>
+              <div>
+                <a href="{{ item.url }}" class="cart-title">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}<div class="cart-meta">{{ item.variant.title }}</div>{%- endunless -%}
+                {%- for p in item.properties -%}
+                  {%- assign first_char = p.first | slice: 0 -%}
+                  {%- if p.last != blank and first_char != '_' -%}<div class="cart-meta">{{ p.first }}: {{ p.last }}</div>{%- endif -%}
+                {%- endfor -%}
+                <div class="cart-price">
+                  {%- if item.original_price != item.final_price -%}<s>{{ item.original_price | money }}</s>{%- endif -%}
+                  {{ item.final_price | money }}
+                </div>
+                {%- for d in item.line_level_discount_allocations -%}<div class="cart-disc">{{ d.discount_application.title }} (&minus;{{ d.amount | money }})</div>{%- endfor -%}
+                <div class="cart-actions">
+                  <label class="visually-hidden" for="CartQty-{{ forloop.index }}">{{ 'cart.quantity' | t }}: {{ item.product.title | escape }}</label>
+                  <div class="qty-step">
+                    <button type="button" data-qty="-1" aria-label="{{ 'cart.decrease' | t }}">&minus;</button>
+                    <input type="number" id="CartQty-{{ forloop.index }}" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric">
+                    <button type="button" data-qty="1" aria-label="{{ 'cart.increase' | t }}">+</button>
+                  </div>
+                  <a href="{{ item.url_to_remove }}" class="cart-remove">{{ 'cart.remove' | t }}<span class="visually-hidden"> {{ item.product.title }}</span></a>
+                </div>
+              </div>
+              <div class="cart-line">{{ item.final_line_price | money }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <aside class="cart-summary" aria-label="{{ 'cart.summary' | t }}">
+          {%- for d in cart.cart_level_discount_applications -%}
+            <div class="cart-sum-row"><span>{{ d.title }}</span><span>&minus;{{ d.total_allocated_amount | money }}</span></div>
+          {%- endfor -%}
+          <div class="cart-sum-total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></div>
+          <p class="cart-tax">{{ 'cart.taxes_note' | t }}</p>
+          <label class="cart-note-lbl" for="CartNote">{{ 'cart.note' | t }}</label>
+          <textarea class="cart-note" id="CartNote" name="note">{{ cart.note }}</textarea>
+          <button type="submit" name="checkout" class="aeron-btn aeron-btn-full" style="padding:16px;">{{ 'cart.checkout' | t }}</button>
+          <button type="submit" name="update" class="cart-update">{{ 'cart.update' | t }}</button>
+        </aside>
+      </form>
+    {%- else -%}
+      <div class="cart-empty">
+        <p>{{ 'cart.empty' | t }}</p>
+        <div class="cart-empty-ctas">
+          <a href="{{ section.settings.shop_url | default: routes.all_products_collection_url }}" class="aeron-btn">{{ 'cart.continue' | t }}</a>
+          <a href="{{ section.settings.project_url | default: '/pages/kits#project' }}" class="aeron-btn-outline">{{ 'general.start_project' | t }}</a>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+(function(){
+  var form=document.getElementById('cart-form');
+  if(!form)return;
+  form.addEventListener('click',function(e){
+    var b=e.target.closest('[data-qty]');
+    if(!b)return;
+    var inp=b.parentNode.querySelector('input');
+    inp.value=Math.max(0,(parseInt(inp.value,10)||0)+parseInt(b.getAttribute('data-qty'),10));
+    form.submit();
+  });
+  form.addEventListener('change',function(e){if(e.target.name==='updates[]')form.submit();});
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    { "type": "url", "id": "shop_url",    "label": "Continue shopping link", "info": "Defaults to all products." },
+    { "type": "url", "id": "project_url", "label": "Start a project link",   "info": "Defaults to /pages/kits#project." }
+  ]
+}
+{% endschema %}
