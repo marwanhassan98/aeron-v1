@@ -26,7 +26,8 @@
         "one": "{{ count }} result",
         "other": "{{ count }} results"
       }
-    }
+    },
+    "pause_animation": "Pause animation"
   },
   "cart": {
     "kicker": "Your Order",

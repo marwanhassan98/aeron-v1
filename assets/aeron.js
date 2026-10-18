@@ -16,11 +16,21 @@ if(crng&&window.matchMedia('(hover:hover) and (pointer:fine)').matches&&!window.
   document.addEventListener('mouseover',function(e){crng.classList.toggle('big',!!e.target.closest('a,button,.opt-card,.prod-card,.gallery-cell,label'));});
 }
 
-/* NAV SCROLL */
+/* NAV SCROLL: shadow when scrolled; hide on scroll down, show on scroll up */
 var nav=document.getElementById('main-nav');
 if(nav){
-  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>50);}
-  window.addEventListener('scroll',onScroll,{passive:true});
+  var lastY=window.scrollY,ticking=false;
+  function onScroll(){
+    var y=window.scrollY,menuOpen=document.body.style.overflow==='hidden';
+    nav.classList.toggle('scrolled',y>50);
+    if(!menuOpen&&!nav.contains(document.activeElement)){
+      if(y>lastY+6&&y>240)nav.classList.add('nav-hidden');
+      else if(y<lastY-6||y<240)nav.classList.remove('nav-hidden');
+    }
+    lastY=y;ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll);}},{passive:true});
+  nav.addEventListener('focusin',function(){nav.classList.remove('nav-hidden');});
   onScroll();
 }
 
@@ -45,11 +55,24 @@ document.addEventListener('keydown',function(e){
 });
 window.addEventListener('resize',function(){if(window.innerWidth>900&&mmenu&&mmenu.classList.contains('open'))setMenu(false);});
 
-/* SCROLL REVEAL */
+/* SCROLL REVEAL: siblings stagger via --i */
 var ro=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis');});
-},{threshold:.07});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){ro.observe(el);});
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target);}});
+},{threshold:.07,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el){
+  var sibs=[].filter.call(el.parentNode.children,function(c){return c.classList.contains('reveal');});
+  if(sibs.length>1)el.style.setProperty('--i',Math.min(sibs.indexOf(el),6));
+  ro.observe(el);
+});
+
+/* PAUSE BUTTONS FOR LOOPING STRIPS (WCAG 2.2.2) */
+document.querySelectorAll('[data-loop-pause]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.parentNode.querySelector('.mq-track,.photo-track'),p=b.getAttribute('aria-pressed')!=='true';
+    b.setAttribute('aria-pressed',p?'true':'false');b.innerHTML=p?'&#9654;':'&#10074;&#10074;';
+    if(t)t.classList.toggle('user-paused',p);
+  });
+});
 
 /* PAUSE LOOPING STRIPS WHILE OFF-SCREEN */
 var po=new IntersectionObserver(function(entries){
@@ -164,6 +187,21 @@ function toggleLine(lid,pid,show,amount){
   if(l)l.style.display='none';return 0;
 }
 
+var shownTotal=null,totalRaf=0,calm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+function animateTotal(el,to){
+  var from=shownTotal===null?to:shownTotal;shownTotal=to;
+  cancelAnimationFrame(totalRaf);
+  if(calm||from===to){el.textContent=fmt(to);return;}
+  var t0=null;
+  (function step(ts){
+    if(!t0)t0=ts;var p=Math.min((ts-t0)/450,1),e=1-Math.pow(1-p,3);
+    el.textContent=fmt(from+(to-from)*e);
+    if(p<1)totalRaf=requestAnimationFrame(step);
+  })(performance.now());
+}
+var navCta=document.querySelector('#main-nav .aeron-btn');
+if(navCta&&!calm)setTimeout(function(){navCta.classList.add('nav-pulse');},3000);
+
 function updatePrice(){
   var base=apexBase(qty,selKit),total=base*qty;
   var jc=document.getElementById('priceJerseyCard'),sc=document.getElementById('priceShortsCard');
@@ -181,7 +219,7 @@ function updatePrice(){
   if(ps){if(ship===0){ps.textContent=S.free;ps.style.color='#28C76F';}else{ps.textContent=fmt(ship);ps.style.color='';}}
   total+=ship;
   var pt=document.getElementById('pTotal'),un=document.getElementById('unitNote');
-  if(pt)pt.textContent=fmt(total);
+  if(pt)animateTotal(pt,total);
   if(un)un.textContent=S.unit_note.replace('[price]',fmt(total/qty));
   var sf=document.getElementById('shipFree'),sp=document.getElementById('shipPaid'),sm=document.getElementById('shipMsg');
   if(sf)sf.classList.toggle('show',ship===0);

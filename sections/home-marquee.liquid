@@ -8,6 +8,7 @@
   {%- endfor -%}
 {%- endcapture -%}
 <div class="mq-strip">
+  <button type="button" class="loop-pause" aria-pressed="false" aria-label="{{ 'general.pause_animation' | t }}" data-loop-pause>&#10074;&#10074;</button>
   <div class="mq-track">
     <div class="mq-set">{{ mq_items }}</div>
     <div class="mq-set" aria-hidden="true">{{ mq_items }}</div>

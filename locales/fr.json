@@ -26,7 +26,8 @@
         "one": "{{ count }} résultat",
         "other": "{{ count }} résultats"
       }
-    }
+    },
+    "pause_animation": "Mettre l’animation en pause"
   },
   "cart": {
     "kicker": "Votre commande",

@@ -26,6 +26,7 @@
 -%}
 {%- if shown > 0 -%}
 <div class="photo-strip">
+  <button type="button" class="loop-pause" aria-pressed="false" aria-label="{{ 'general.pause_animation' | t }}" data-loop-pause>&#10074;&#10074;</button>
   <div class="photo-track">
     {% for block in section.blocks %}{%- if block.settings.image == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}{% for i in (1..2) %}
       <div class="photo-item" {{ block.shopify_attributes }}>
