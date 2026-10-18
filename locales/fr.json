@@ -1,0 +1,213 @@
+{
+  "general": {
+    "meta": {
+      "page": "Page {{ page }}"
+    },
+    "start_project": "Démarrer un projet",
+    "skip_to_content": "Passer au contenu",
+    "pagination": "Pagination",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "404": {
+      "kicker": "Hors du terrain",
+      "title": "Page introuvable.",
+      "text": "La page que vous cherchez a été déplacée ou n’existe pas. Lancez une recherche ou revenez à l’accueil.",
+      "home": "Retour à l’accueil"
+    },
+    "search": {
+      "kicker": "Recherche",
+      "title": "Recherche.",
+      "results_for": "Résultats pour « {{ terms }} »",
+      "label": "Rechercher dans la boutique",
+      "placeholder": "Chandails, bas, pages…",
+      "submit": "Rechercher",
+      "no_results": "Aucun résultat pour « {{ terms }} ». Essayez un autre mot.",
+      "count": {
+        "one": "{{ count }} résultat",
+        "other": "{{ count }} résultats"
+      }
+    }
+  },
+  "cart": {
+    "kicker": "Votre commande",
+    "title": "Panier",
+    "empty": "Votre panier est vide.",
+    "continue": "Continuer vos achats",
+    "quantity": "Quantité",
+    "decrease": "Diminuer la quantité",
+    "increase": "Augmenter la quantité",
+    "remove": "Retirer",
+    "summary": "Récapitulatif de la commande",
+    "subtotal": "Sous-total",
+    "taxes_note": "Taxes et livraison calculées au paiement.",
+    "note": "Note de commande",
+    "update": "Mettre à jour le panier",
+    "checkout": "Passer au paiement",
+    "link_label": "Panier, {{ count }} articles"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "sold_out": "Épuisé",
+      "unavailable": "Non disponible",
+      "from": "À partir de"
+    }
+  },
+  "collections": {
+    "product_count": {
+      "one": "{{ count }} produit",
+      "other": "{{ count }} produits"
+    },
+    "sort_by": "Trier par",
+    "from": "Prix minimum",
+    "to": "Prix maximum",
+    "apply": "Appliquer",
+    "clear": "Tout effacer",
+    "no_matches": "Aucun produit ne correspond à ces filtres.",
+    "coming_soon": "Bientôt disponible"
+  },
+  "password": {
+    "title": "Bientôt",
+    "email": "Votre courriel",
+    "notify": "M’aviser",
+    "newsletter_success": "Vous êtes inscrit. Nous vous écrirons au lancement.",
+    "password": "Mot de passe",
+    "enter": "Entrer",
+    "wrong": "Mot de passe incorrect. Réessayez."
+  },
+  "gift_card": {
+    "title": "Carte-cadeau de {{ value }}",
+    "kicker": "Carte-cadeau",
+    "balance": "Solde restant : {{ value }}",
+    "disabled": "Cette carte-cadeau n’est plus active.",
+    "code": "Code de la carte-cadeau",
+    "expires": "Expire le {{ date }}",
+    "shop": "Magasiner",
+    "wallet": "Ajouter à Apple Wallet",
+    "print": "Imprimer"
+  },
+  "offer": {
+    "line": "Dépôt de {{ deposit }} pour commencer · {{ timeline }}",
+    "deposit_to_start": "Dépôt de {{ deposit }} pour commencer",
+    "deposit_word": "dépôt",
+    "cta_line": "Équipements APEX sur mesure. Dépôt de {{ deposit }} pour commencer. Prêts en {{ timeline }}."
+  },
+  "footer": {
+    "explore": "Explorer",
+    "policies": "Politiques",
+    "contact": "Contact",
+    "payment_methods": "Modes de paiement"
+  },
+  "popup": {
+    "close": "Fermer",
+    "kicker": "Bienvenue chez AERON",
+    "email": "Adresse courriel",
+    "submit": "Obtenir l’offre",
+    "fine_print": "Désabonnement en tout temps. Première commande seulement.",
+    "no_thanks": "Non merci, continuer",
+    "success_title": "C’est fait.",
+    "success_code_html": "Utilisez le code <strong style=\"color:#0F1A2B;font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:2px;\">{{ code }}</strong> au paiement.",
+    "success_text": "Merci de votre inscription. Surveillez votre boîte de réception.",
+    "continue": "Continuer vos achats"
+  },
+  "header": {
+    "main_nav": "Principal",
+    "mobile_nav": "Mobile",
+    "menu": "Menu",
+    "home": "Accueil",
+    "language": "Langue"
+  },
+  "kits": {
+    "qty_label": "Nombre de chandails",
+    "fewer_logos": "Moins de logos de commanditaires",
+    "more_logos": "Plus de logos de commanditaires",
+    "feat_sublimation": "Sublimation complète — couleurs et motifs illimités",
+    "feat_logo": "Logo AERON brodé — sur chaque équipement",
+    "feat_crest": "Écusson du club en TPU en relief — inclus",
+    "feat_sponsors": "Logos de commanditaires sublimés — illimités, gratuits",
+    "feat_collar": "Col rond par défaut — 5 styles en option",
+    "feat_shipping": "Livraison gratuite dès {{ qty }} unités",
+    "build_cta": "Créez votre équipement ↓",
+    "kit_type": "Type d’équipement",
+    "sizes_note_html": "Chandails offerts en <strong>P / M / G / TG / 2TG / 3TG / 4TG</strong>. Indiquez la taille de chaque joueur dans les notes ci-dessous.",
+    "jersey_only": "Chandail seulement",
+    "jersey_shorts": "Chandail + short",
+    "addons": "Options",
+    "names_numbers": "Noms et numéros des joueurs",
+    "sponsor_upgrade": "Logo de commanditaire premium",
+    "sponsor_free": "✓ Logos sublimés gratuits",
+    "emb_crest": "Écusson brodé",
+    "socks": "Bas Launch Pads™",
+    "sponsor_count": "Combien de logos de commanditaires? (Les logos sublimés sont toujours gratuits — cette option passe à l’impression premium.)",
+    "collar_style": "Style de col",
+    "collar_note": "Col rond inclus. Les autres styles sont un petit supplément par chandail.",
+    "collar_round": "Rond",
+    "collar_vneck": "En V",
+    "collar_polo": "Polo",
+    "collar_mandarin": "Mandarin",
+    "collar_kiwi": "Kiwi",
+    "collar_insert": "Insert",
+    "included": "Inclus",
+    "quantity": "Quantité",
+    "qty_min": "10 chandails",
+    "collar_upgrade": "Supplément de col",
+    "sponsor_print": "Impression premium des commanditaires",
+    "grip_socks": "Bas antidérapants Launch Pads™",
+    "shipping": "Livraison",
+    "estimated_total": "Total estimé",
+    "start_project_cta": "Démarrer un projet →",
+    "free_ship_order": "✓ Livraison gratuite pour cette commande",
+    "estimate_note": "Estimation seulement. Prix final confirmé après la consultation. Taxes en sus.",
+    "faq_kicker": "Avant de commencer",
+    "faq_heading": "Questions fréquentes.",
+    "whatsapp_cta": "Vous préférez jaser? Écrivez-nous sur WhatsApp",
+    "b1_title": "Consultation design complète",
+    "b1_text": "Nous travaillons avec vos couleurs, vos motifs et votre identité. Vous ne partez jamais de zéro.",
+    "b2_title": "Maquette en 24 heures",
+    "b2_text": "Maquette numérique complète de votre équipement APEX avant la production.",
+    "b3_title": "3 révisions gratuites",
+    "b3_text": "Nous peaufinons jusqu’à ce que ce soit parfait. Aucuns frais de design supplémentaires.",
+    "b4_text": "Approuvez votre soumission, versez le dépôt de {{ deposit }} et nous lançons le travail : {{ timeline }}.",
+    "success_title": "Demande reçue.",
+    "whatsapp": "Écrivez-nous sur WhatsApp",
+    "form_error": "Veuillez vérifier les points suivants et réessayer :",
+    "f_team": "Nom de l’équipe",
+    "f_name": "Votre nom",
+    "f_email": "Courriel",
+    "f_phone": "Téléphone (facultatif)",
+    "f_select": "Choisir…",
+    "f_kit_jersey": "Chandail APEX seulement",
+    "f_kit_shorts": "Chandail APEX + short",
+    "f_notes": "Vision et notes",
+    "files_note_html": "<strong>Écusson et logos de commanditaires :</strong> envoyez-les à {{ link }} avec le nom de votre équipe en objet. Fichiers vectoriels (AI, SVG, PDF, EPS) ou PNG haute résolution.",
+    "how_it_works": "Comment ça marche",
+    "quote_first": "Soumission d’abord — réponse en 24 heures",
+    "d1": "Consultation design complète",
+    "d2": "Maquette APEX sur mesure",
+    "d3": "Jusqu’à 3 révisions gratuites",
+    "d4": "Réponse en 24 heures",
+    "submit": "Envoyer la demande",
+    "ph_team": "FC Exemple",
+    "ph_name": "Marie Tremblay",
+    "ph_email": "vous@equipe.com",
+    "ph_notes": "Couleurs, motifs, col, options, date limite, tailles des joueurs…",
+    "js": {
+      "base_jersey": "Chandail APEX",
+      "base_set": "APEX + short",
+      "per_jersey": "/ chandail",
+      "per_set": "/ ensemble",
+      "free": "Gratuite",
+      "unit_note": "env. [price] par chandail",
+      "ship_msg": "Livraison [price] — gratuite dès [qty] unités",
+      "sending": "Envoi…"
+    },
+    "per_logo": "/ logo / chandail",
+    "per_pair": "/ paire / joueur"
+  },
+  "home": {
+    "scroll": "Défiler"
+  },
+  "marquee": {
+    "fallback": "APEX|Un équipement. Tout premium.|Équipements de soccer sur mesure|Montréal|Logo AERON brodé inclus|Sublimation complète"
+  }
+}

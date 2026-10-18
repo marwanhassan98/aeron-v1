@@ -41,6 +41,7 @@
   </div>
 
   <div class="ft-bottom">
+    {% render 'language-switcher', id: 'LangFooter', dark: true %}
     <div class="footer-copy">&copy; {{ 'now' | date: '%Y' }} {{ section.settings.brand_name }}</div>
     {%- if shop.enabled_payment_types.size > 0 -%}
       <ul class="ft-pay" aria-label="{{ 'footer.payment_methods' | t }}">

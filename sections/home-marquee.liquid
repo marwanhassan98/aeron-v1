@@ -1,11 +1,16 @@
+{%- comment -%}Scrolling strip. Items render twice so the -50% loop is seamless; the copy is hidden from screen readers.{%- endcomment -%}
+{%- capture mq_items -%}
+  {%- for block in section.blocks -%}
+    <span class="mq-item{% if block.settings.gold %} mq-gold{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+  {%- else -%}
+    {%- assign fallback = 'marquee.fallback' | t | split: '|' -%}
+    {%- for item in fallback -%}<span class="mq-item">{{ item }}</span><span class="mq-item mq-gold">&mdash;</span>{%- endfor -%}
+  {%- endfor -%}
+{%- endcapture -%}
 <div class="mq-strip">
   <div class="mq-track">
-    {% for block in section.blocks %}
-      <span class="mq-item{% if block.settings.gold %} mq-gold{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
-    {% else %}
-      <span class="mq-item mq-gold">APEX</span><span class="mq-item">One Kit. Everything Premium.</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Custom Football Kits</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Montr&eacute;al</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">AERON Embroidered Logo Included</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Full Sublimation</span><span class="mq-item mq-gold">&mdash;</span>
-      <span class="mq-item mq-gold">APEX</span><span class="mq-item">One Kit. Everything Premium.</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Custom Football Kits</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Montr&eacute;al</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">AERON Embroidered Logo Included</span><span class="mq-item mq-gold">&mdash;</span><span class="mq-item">Full Sublimation</span><span class="mq-item mq-gold">&mdash;</span>
-    {% endfor %}
+    <div class="mq-set">{{ mq_items }}</div>
+    <div class="mq-set" aria-hidden="true">{{ mq_items }}</div>
   </div>
 </div>
 {% schema %}

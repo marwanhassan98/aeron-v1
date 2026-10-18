@@ -15,6 +15,7 @@
         <a class="mm-link{% if request.path contains block.settings.url %} active{% endif %}" href="{{ block.settings.url }}">{{ block.settings.label }}</a>
       {%- endfor -%}
     {%- endif -%}
+    <div style="margin-top:22px;">{% render 'language-switcher', id: 'LangMobile', dark: true %}</div>
     <a class="aeron-btn" href="{{ cta_url }}" style="margin-top:18px;padding:14px 52px;font-size:11px;">{{ cta_label }}</a>
   </nav>
 </div>

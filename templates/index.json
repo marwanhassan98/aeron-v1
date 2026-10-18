@@ -15,6 +15,98 @@
     },
     "marquee": {
       "type": "home-marquee",
+      "blocks": {
+        "m1": {
+          "type": "item",
+          "settings": {
+            "text": "APEX",
+            "gold": true
+          }
+        },
+        "m2": {
+          "type": "item",
+          "settings": {
+            "text": "One Kit. Everything Premium.",
+            "gold": false
+          }
+        },
+        "m3": {
+          "type": "item",
+          "settings": {
+            "text": "—",
+            "gold": true
+          }
+        },
+        "m4": {
+          "type": "item",
+          "settings": {
+            "text": "Custom Football Kits",
+            "gold": false
+          }
+        },
+        "m5": {
+          "type": "item",
+          "settings": {
+            "text": "—",
+            "gold": true
+          }
+        },
+        "m6": {
+          "type": "item",
+          "settings": {
+            "text": "Montréal",
+            "gold": false
+          }
+        },
+        "m7": {
+          "type": "item",
+          "settings": {
+            "text": "—",
+            "gold": true
+          }
+        },
+        "m8": {
+          "type": "item",
+          "settings": {
+            "text": "AERON Embroidered Logo Included",
+            "gold": false
+          }
+        },
+        "m9": {
+          "type": "item",
+          "settings": {
+            "text": "—",
+            "gold": true
+          }
+        },
+        "m10": {
+          "type": "item",
+          "settings": {
+            "text": "Full Sublimation",
+            "gold": false
+          }
+        },
+        "m11": {
+          "type": "item",
+          "settings": {
+            "text": "—",
+            "gold": true
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5",
+        "m6",
+        "m7",
+        "m8",
+        "m9",
+        "m10",
+        "m11"
+      ],
       "settings": {}
     },
     "photos": {

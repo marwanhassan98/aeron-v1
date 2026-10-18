@@ -1,0 +1,12 @@
+{% comment %}
+  EN | FR switcher. Renders nothing until a second language is published (Settings → Languages).
+  Accepts: id (required, unique form id), dark (boolean, light text for dark backgrounds)
+{% endcomment %}
+{%- if localization.available_languages.size > 1 -%}
+  {%- form 'localization', id: id, class: 'lang-switch' -%}
+    <span class="visually-hidden">{{ 'header.language' | t }}</span>
+    {%- for language in localization.available_languages -%}
+      <button type="submit" name="locale_code" value="{{ language.iso_code }}" lang="{{ language.iso_code }}" class="lang-btn{% if dark %} lang-dark{% endif %}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} aria-label="{{ language.endonym_name | capitalize }}">{{ language.iso_code | upcase }}</button>
+    {%- endfor -%}
+  {%- endform -%}
+{%- endif -%}

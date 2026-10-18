@@ -137,6 +137,7 @@ var P=JSON.parse(document.getElementById('kitPricing').textContent);
 var jMOQ=P.jersey,sMOQ=P.set;
 var PR={names:P.names,spon:P.sponsor,emb:P.emb,socks:P.socks};
 var SH=P.ship;
+var S=JSON.parse(document.getElementById('kitStrings').textContent);
 
 function apexBase(q,kit){
   var t=kit==='shorts'?sMOQ:jMOQ;
@@ -183,10 +184,10 @@ function toggleLine(lid,pid,show,amount){
 function updatePrice(){
   var base=apexBase(qty,selKit),total=base*qty;
   var jc=document.getElementById('priceJerseyCard'),sc=document.getElementById('priceShortsCard');
-  if(jc)jc.textContent='$'+apexBase(qty,'jersey')+' / jersey';
-  if(sc)sc.textContent='$'+apexBase(qty,'shorts')+' / set';
+  if(jc)jc.textContent='$'+apexBase(qty,'jersey')+' '+S.per_jersey;
+  if(sc)sc.textContent='$'+apexBase(qty,'shorts')+' '+S.per_set;
   var lb=document.getElementById('lBase'),pb=document.getElementById('pBase');
-  if(lb)lb.textContent=(selKit==='shorts'?'APEX + Shorts':'APEX Jersey')+' x'+qty;
+  if(lb)lb.textContent=(selKit==='shorts'?S.base_set:S.base_jersey)+' x'+qty;
   if(pb)pb.textContent=fmt(base*qty);
   total+=toggleLine('lCollar','pCollar',collarUp>0,collarUp*qty);
   total+=toggleLine('lNames','pNames',addons.names,PR.names*qty);
@@ -194,15 +195,15 @@ function updatePrice(){
   total+=toggleLine('lEmb','pEmb',addons.emb,PR.emb*qty);
   total+=toggleLine('lSocks','pSocks',addons.socks,PR.socks*qty);
   var ship=getShip(qty),ps=document.getElementById('pShip');
-  if(ps){if(ship===0){ps.textContent='Free';ps.style.color='#28C76F';}else{ps.textContent=fmt(ship);ps.style.color='';}}
+  if(ps){if(ship===0){ps.textContent=S.free;ps.style.color='#28C76F';}else{ps.textContent=fmt(ship);ps.style.color='';}}
   total+=ship;
   var pt=document.getElementById('pTotal'),un=document.getElementById('unitNote');
   if(pt)pt.textContent=fmt(total);
-  if(un)un.textContent='approx. '+fmt(total/qty)+' per jersey';
+  if(un)un.textContent=S.unit_note.replace('[price]',fmt(total/qty));
   var sf=document.getElementById('shipFree'),sp=document.getElementById('shipPaid'),sm=document.getElementById('shipMsg');
   if(sf)sf.classList.toggle('show',ship===0);
   if(sp)sp.classList.toggle('show',ship>0);
-  if(sm&&ship>0)sm.textContent=fmt(ship)+' shipping — free on '+SH.free+'+';
+  if(sm&&ship>0)sm.textContent=S.ship_msg.replace('[price]',fmt(ship)).replace('[qty]',SH.free);
 }
 updatePrice();
 
@@ -219,7 +220,7 @@ window.submitProject=function(){
   lines.push('Estimated Total: '+(pt?pt.textContent:'N/A'));
   var sf=document.getElementById('supplierSummary');if(sf)sf.value=lines.join('\n');
   var btn=document.getElementById('payBtn');
-  if(btn){btn.disabled=true;btn.textContent='Sending...';}
+  if(btn){btn.disabled=true;btn.textContent=S.sending;}
 };
 var projForm=document.getElementById('projForm');
 if(projForm)projForm.addEventListener('submit',window.submitProject);
